@@ -11,3 +11,5 @@ In the report side, we just select the event and downlaod data from server, then
 
 10/10 create a calendar activity
 
+11/10 add some event-listenr to calendar 
+
