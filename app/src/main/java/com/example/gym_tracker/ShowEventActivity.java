@@ -14,8 +14,8 @@ public class ShowEventActivity extends AppCompatActivity {
 
     String mDate;
 
-    String[] pokemonName = new String[] { "Pikachu", "Squirtle"
-            , "Tauros", "Bouffalant", "Terrakion"
+    String[] pokemonName = new String[] { "Bench Press", "Squat"
+            , "RDL", "Lat Pull Down", "Seated Row"
             ,"Rattata", "Raticate", "Patrat", "Pichu"
     };
 

@@ -2,6 +2,7 @@ package com.example.gym_tracker;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,29 +26,41 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public static class EventListViewHolder extends RecyclerView.ViewHolder {
-        private ImageView img;
         private TextView txt;
 
+
+
+
+        // Event handling registration, page navigation goes here
         public EventListViewHolder(@NonNull View itemView){
             super(itemView);
             this.txt = (TextView) itemView.findViewById(R.id.itemText);
+
+            this.txt.setOnClickListener((view)->{
+                Log.d("I want it", this.txt.getText().toString());
+            });
         }
 
-        public ImageView getImageView() { return img; }
+
+
+
+
         public TextView getTextView() { return txt; }
         // End of ViewHolder initialization
     }
 
 
+    // for creating viewHolder here
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate()to find a layout in xml
         View view = (LayoutInflater.from(context)).inflate(itemViewResID, null);
         return new EventListViewHolder(view);
     }
 
 
-    // for changing the content for each element
+    // for setting the content for each element
     // set the content of the ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
