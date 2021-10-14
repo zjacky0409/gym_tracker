@@ -3,8 +3,11 @@ package com.example.gym_tracker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
@@ -23,15 +26,15 @@ public class Calendar extends AppCompatActivity {
 
         CalendarView calendarView = findViewById(R.id.calendarView);
         TextView show_date = findViewById(R.id.show_date);
+        Button goToEvent = findViewById(R.id.go_to_event);
 
         Date c = java.util.Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("d-M-yyyy", Locale.getDefault());
         date = df.format(c);
 
-//        Log.d("Date That I want", date);
         calendarView.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
             @Override
-            //important: month [0-11]
+            //important: month is from 0 to 11
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day){
                 date = day + "-" + (month + 1) + "-" + year;
                 Log.d("Data I want", date);
@@ -40,5 +43,19 @@ public class Calendar extends AppCompatActivity {
 
         });
 
+        goToEvent.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                goToEventList(v);
+            }
+        });
+
+    }
+
+    public void goToEventList(View view) {
+        Intent intent = new Intent(this, ShowEventActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("Date",date);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

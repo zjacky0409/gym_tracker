@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Gym_tracker">
-        <activity android:name=".Calendar"></activity>
+        <activity android:name=".ShowEventActivity"></activity>
+        <activity android:name=".Calendar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
