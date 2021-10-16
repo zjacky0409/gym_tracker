@@ -15,3 +15,5 @@ In the report side, we just select the event and downlaod data from server, then
 
 14/10 add a simple recycler view from lecture's example but i need to build own version. 
 
+17/10 learn how to connect to my backend server.
+
