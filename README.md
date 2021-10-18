@@ -17,3 +17,5 @@ In the report side, we just select the event and downlaod data from server, then
 
 17/10 learn how to connect to my backend server.
 
+18/10 learn how to connect to my backend server by volley 
+
