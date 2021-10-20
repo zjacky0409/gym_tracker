@@ -19,3 +19,5 @@ In the report side, we just select the event and downlaod data from server, then
 
 18/10 learn how to connect to my backend server by volley. On the other hand, I really to learn how to connect backend with another tool ---- Retrofit. 
 
+21/10 Retrofit Testing
+
