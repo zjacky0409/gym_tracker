@@ -1,8 +1,5 @@
 package com.example.gym_tracker;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,9 +8,18 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Calendar extends AppCompatActivity {
 
@@ -32,10 +38,10 @@ public class Calendar extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("d-M-yyyy", Locale.getDefault());
         date = df.format(c);
 
-        calendarView.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             //important: month is from 0 to 11
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day){
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 date = day + "-" + (month + 1) + "-" + year;
                 Log.d("Data I want", date);
                 show_date.setText(date);
@@ -49,12 +55,35 @@ public class Calendar extends AppCompatActivity {
             }
         });
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.0.179:8081/testingAgain/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        MyAPIServiceTesting fakeAPIService = retrofit.create(MyAPIServiceTesting.class);
+
+        Call<Testing> call = fakeAPIService.getMyDataByPost();
+
+        call.enqueue(new Callback<Testing>() {
+            @Override
+            public void onResponse(Call<Testing> call, Response<Testing> response) {
+                Log.d("TESTING AR", "exercise: " + response.body().getExercises());
+
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.d("ERROR", "response: " + t.toString());
+            }
+        });
+
+
     }
 
     public void goToEventList(View view) {
         Intent intent = new Intent(this, ShowEventActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("Date",date);
+        bundle.putString("Date", date);
         intent.putExtras(bundle);
         startActivity(intent);
     }

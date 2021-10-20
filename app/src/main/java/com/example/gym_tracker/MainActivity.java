@@ -1,11 +1,11 @@
 package com.example.gym_tracker;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -17,12 +17,45 @@ public class MainActivity extends AppCompatActivity {
 
         Button normalAction = findViewById(R.id.modify_btn);
 
+
         normalAction.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 goToCalendar(v);
             }
         });
 
+// ref from http://tw-hkt.blogspot.com/2020/03/retrofit-java.html
+//        // addConverterFactory: what kinds of format that you want it.
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("https://jsonplaceholder.typicode.com")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        MyAPIServiceTesting fakeAPIService = retrofit.create(MyAPIServiceTesting.class);
+//
+//        Call<List<Post>> call = fakeAPIService.getPosts();
+//        call.enqueue(new Callback<List<Post>>() {
+//            @Override
+//            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+//                // by using foreach to select the data
+//                for (Post item : response.body()) {
+//                    Log.d("Testing", "id: " + item.getId());
+//                    Log.d("Testing", "title: " + item.getTitle());
+//                    Log.d("Testing", "body: " + item.getBody());
+//                    Log.d("Testing", "userId: " + item.getUserId());
+//                }
+//
+//                Log.d("Testing Again Ar","Testing for async await");
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call call, Throwable t) {
+//                Log.d("Testing", "response: " + t.toString());
+//            }
+//        });
+//
+//        Log.d("Testing","Testing for async await");
 
     }
 

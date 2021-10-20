@@ -1,12 +1,10 @@
 package com.example.gym_tracker;
 
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,7 +16,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     Context context;
     int itemViewResID;
 
-    EventListAdapter(Context context, int itemViewResID, String[] imgUrl, String[] name ) {
+    EventListAdapter(Context context, int itemViewResID, String[] imgUrl, String[] name) {
         this.context = context;
         this.itemViewResID = itemViewResID;
         this.imgUrl = imgUrl;
@@ -26,26 +24,23 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public static class EventListViewHolder extends RecyclerView.ViewHolder {
-        private TextView txt;
-
-
+        private final TextView txt;
 
 
         // Event handling registration, page navigation goes here
-        public EventListViewHolder(@NonNull View itemView){
+        public EventListViewHolder(@NonNull View itemView) {
             super(itemView);
             this.txt = (TextView) itemView.findViewById(R.id.itemText);
 
-            this.txt.setOnClickListener((view)->{
+            this.txt.setOnClickListener((view) -> {
                 Log.d("I want it", this.txt.getText().toString());
             });
         }
 
 
-
-
-
-        public TextView getTextView() { return txt; }
+        public TextView getTextView() {
+            return txt;
+        }
         // End of ViewHolder initialization
     }
 
@@ -64,7 +59,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     // set the content of the ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((EventListViewHolder)holder).getTextView().setText(name[position]);
+        ((EventListViewHolder) holder).getTextView().setText(name[position]);
     }
 
 
