@@ -1,7 +1,10 @@
 package com.example.gym_tracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,6 +52,14 @@ public class ShowEventActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         mDate = bundle.getString("Date");
+
+        Button addEvent = findViewById(R.id.add_event);
+
+        addEvent.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                goToAddEventActivity(v);
+            }
+        });
 
 
         // ref from http://tw-hkt.blogspot.com/2020/03/retrofit-java.html
@@ -132,5 +143,10 @@ public class ShowEventActivity extends AppCompatActivity {
 //                R.layout.event_summary, pokemonImgUrl, pokemonName);
 //        list.setAdapter(customAdaptor);
 //        list.setLayoutManager(new GridLayoutManager(this, 1));
+    }
+
+    public void goToAddEventActivity(View view) {
+        Intent intent = new Intent(this, AddEventActivity.class);
+        startActivity(intent);
     }
 }

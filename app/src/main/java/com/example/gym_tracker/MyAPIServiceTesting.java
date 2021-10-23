@@ -3,6 +3,7 @@ package com.example.gym_tracker;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -27,4 +28,7 @@ public interface MyAPIServiceTesting {
     // note that POST Vs GET
     @POST("/testingAgain")
     Call<Testing> getMyDataByPost();
+
+    @POST("/addEvent")
+    Call<DataTesting>createData(@Body DataTesting data);
 }

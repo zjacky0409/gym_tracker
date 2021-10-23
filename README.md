@@ -24,3 +24,5 @@ In the report side, we just select the event and downlaod data from server, then
 
 21/10 Retrofit Testing
 
+23/10 build a simple activity to let user enter exercise information and send to backend.
+
