@@ -26,3 +26,5 @@ In the report side, we just select the event and downlaod data from server, then
 
 23/10 build a simple activity to let user enter exercise information and send to backend.
 
+25/10 build a exercise format and send it to backend
+

@@ -29,6 +29,10 @@ public interface MyAPIServiceTesting {
     @POST("/testingAgain")
     Call<Testing> getMyDataByPost();
 
+//    @POST("/addEvent")
+//    Call<DataTesting>createData(@Body DataTesting data);
+
     @POST("/addEvent")
-    Call<DataTesting>createData(@Body DataTesting data);
+    Call<Exercise>createData(@Body Exercise data);
+
 }
