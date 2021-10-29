@@ -87,7 +87,7 @@ public class ShowEventActivity extends AppCompatActivity {
                         try {
                             JSONArray errorArray = response.getJSONArray("exercises");
                             for (int i = 0; i < errorArray.length(); i++) {
-                                Log.d("THE ELE = ", (String) errorArray.optString(i));
+                                Log.d("THE exercises = ", (String) errorArray.optString(i));
                                 pokemonName[i] = errorArray.optString(i);
                             }
                         } catch (JSONException e) {
@@ -146,7 +146,12 @@ public class ShowEventActivity extends AppCompatActivity {
     }
 
     public void goToAddEventActivity(View view) {
+
+
         Intent intent = new Intent(this, AddEventActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("Date", mDate);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }

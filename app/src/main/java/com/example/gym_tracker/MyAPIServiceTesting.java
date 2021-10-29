@@ -4,6 +4,8 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -33,6 +35,12 @@ public interface MyAPIServiceTesting {
 //    Call<DataTesting>createData(@Body DataTesting data);
 
     @POST("/addEvent")
-    Call<Exercise>createData(@Body Exercise data);
+    Call<List<Exercise>>createData(@Body Exercise data);
+
+    // @Field("user_name") String user_name
+    // getData(//we want to send what kind of field to backend)
+    @FormUrlEncoded // important
+    @POST("/getEvent")
+    Call<List<Exercise>>getData(@Field("user_name") String date);
 
 }

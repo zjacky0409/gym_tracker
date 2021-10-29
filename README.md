@@ -28,3 +28,5 @@ In the report side, we just select the event and downlaod data from server, then
 
 25/10 build a exercise format and send it to backend
 
+29/10 build another post request to backend and get the data then store it into a list
+

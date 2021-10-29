@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,10 +21,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddEventActivity extends AppCompatActivity {
 
+    public String mDate;
+    public List<Exercise> exerciseList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
+
+        Bundle bundle = getIntent().getExtras();
+        mDate = bundle.getString("Date");
+
+        getData();
 
         TextView name = findViewById(R.id.event_name);
         TextView set = findViewById(R.id.set);
@@ -126,27 +136,72 @@ public class AddEventActivity extends AppCompatActivity {
         MyAPIServiceTesting retrofitAPI = retrofit.create(MyAPIServiceTesting.class);
 
         // passing data from our text fields to our modal class.
-        Exercise modal = new Exercise(name, set, weight, rest_time, rpe, rir, remark);
+        Exercise modal = new Exercise(name, set, weight, rest_time, rpe, rir, remark,mDate);
 
         // calling a method to create a post and passing our modal class.
-        Call<Exercise> call = retrofitAPI.createData(modal);
+        Call<List<Exercise>> call = retrofitAPI.createData(modal);
 
         // on below line we are executing our method.
-        call.enqueue(new Callback<Exercise>() {
+        call.enqueue(new Callback<List<Exercise>>() {
             @Override
-            public void onResponse(Call<Exercise> call, Response<Exercise> response) {
+            public void onResponse(Call<List<Exercise>> call, Response<List<Exercise>> response) {
 
-                Log.d("response name", response.body().getName());
-                Log.d("response set", response.body().getSet() + "");
-                Log.d("response rir", response.body().getRir()+"");
-                Log.d("response rpe", response.body().getRpe() + "");
-                Log.d("response remark", response.body().getRemark());
-                Log.d("response weight", response.body().getWeight() + "");
+                Log.d("The number that I want",response.body().size()+"");
+                for(int i = 0; i<response.body().size()-1;i++){
+                    Log.d("--------------------", "----------------------");
+                    Log.d("response name", response.body().get(i).getName());
+                    Log.d("response set", response.body().get(i).getSet() + "");
+                    Log.d("response rir", response.body().get(i).getRir()+"");
+                    Log.d("response rpe", response.body().get(i).getRpe() + "");
+                    Log.d("response remark", response.body().get(i).getRemark());
+                    Log.d("response weight", response.body().get(i).getWeight() + "");
+                }
+                // Log.d("Number that we want",response.body().length);
+
 
             }
 
             @Override
-            public void onFailure(Call<Exercise> call, Throwable t) {
+            public void onFailure(Call<List<Exercise>> call, Throwable t) {
+
+
+            }
+        });
+    }
+
+    private void getData(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.0.179:8081/addEvent/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        MyAPIServiceTesting retrofitAPI = retrofit.create(MyAPIServiceTesting.class);
+
+
+        // calling a method to create a post and passing our modal class.
+        Call<List<Exercise>> call = retrofitAPI.getData("111");
+
+        // on below line we are executing our method.
+        call.enqueue(new Callback<List<Exercise>>() {
+            @Override
+            public void onResponse(Call<List<Exercise>> call, Response<List<Exercise>> response) {
+
+                Log.d("The number that I want",response.body().size()+"");
+                for(int i = 0; i<response.body().size()-1;i++){
+                    Log.d("--------------------", "----------------------");
+                    Log.d("response name", response.body().get(i).getName());
+                    Log.d("response set", response.body().get(i).getSet() + "");
+                    Log.d("response rir", response.body().get(i).getRir()+"");
+                    Log.d("response rpe", response.body().get(i).getRpe() + "");
+                    Log.d("response remark", response.body().get(i).getRemark());
+                    Log.d("response weight", response.body().get(i).getWeight() + "");
+                }
+                // Log.d("Number that we want",response.body().length);
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Exercise>> call, Throwable t) {
 
 
             }
