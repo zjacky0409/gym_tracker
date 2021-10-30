@@ -19,7 +19,7 @@ public class Exercise {
         this.remark = remark;
     }
 
-    public Exercise(String name, double set, double weight, String rest_time, double rpe, double rir,String remark,String Date) {
+    public Exercise(String name, double set, double weight, String rest_time, double rpe, double rir, String remark, String Date) {
         this.name = name;
         this.set = set;
         this.weight = weight;

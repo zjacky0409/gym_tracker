@@ -11,26 +11,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ShowEventActivity extends AppCompatActivity {
 
 
     String mDate;
 
-    String[] pokemonName = new String[]{"Bench Press", "Squat"
-            , "RDL", "Lat Pull Down", "Seated Row"
-            , "Rattata", "Raticate", "Patrat", "Pichu"
-    };
+    //    String[] pokemonName = new String[]{};
+    List<String> name = new ArrayList<String>();
 
     String[] pokemonImgUrl = new String[]{
             "https://img.pokemondb.net/artwork/large/pikachu.jpg",
@@ -54,7 +50,7 @@ public class ShowEventActivity extends AppCompatActivity {
         mDate = bundle.getString("Date");
 
         Button addEvent = findViewById(R.id.add_event);
-
+        Log.d("Test0", this.toString());
         addEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 goToAddEventActivity(v);
@@ -64,75 +60,82 @@ public class ShowEventActivity extends AppCompatActivity {
 
         // ref from http://tw-hkt.blogspot.com/2020/03/retrofit-java.html
         // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
+        // RequestQueue queue = Volley.newRequestQueue(this);
         String url = "http://192.168.0.179:8081/";
 
 //        RequestFuture<String> future = RequestFuture.newFuture();
         // Request a string response from the provided URL.
-        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // Display the first 500 characters of the response string.
+//        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
 //                        try {
-//                            Log.d("Success here", response.get("exercises").toString());
+//                            JSONArray errorArray = response.getJSONArray("exercises");
+//                            for (int i = 0; i < errorArray.length(); i++) {
+//                                Log.d("THE exercises = ", (String) errorArray.optString(i));
+//                                pokemonName[i] = errorArray.optString(i);
+//                            }
 //                        } catch (JSONException e) {
+//                            Log.d("Error here", e.toString());
 //                            e.printStackTrace();
 //                        }
-//                        try {
-//                            pokemonName = (String[]) response.get("exercises");
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-                        try {
-                            JSONArray errorArray = response.getJSONArray("exercises");
-                            for (int i = 0; i < errorArray.length(); i++) {
-                                Log.d("THE exercises = ", (String) errorArray.optString(i));
-                                pokemonName[i] = errorArray.optString(i);
-                            }
-                        } catch (JSONException e) {
-                            Log.d("Error here", e.toString());
-                            e.printStackTrace();
-                        }
-                        TextView showText = findViewById(R.id.textView);
-                        showText.setText(mDate);
-                        RecyclerView list = (RecyclerView) findViewById(R.id.event_list_recyclar_view);
+//                        TextView showText = findViewById(R.id.textView);
+//                        showText.setText(mDate);
+//                        RecyclerView list = (RecyclerView) findViewById(R.id.event_list_recyclar_view);
+//
+//                        EventListAdapter customAdaptor = new EventListAdapter(getApplicationContext(),
+//                                R.layout.event_summary, pokemonImgUrl, pokemonName,mDate);
+//                        list.setAdapter(customAdaptor);
+//                        list.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                pokemonName[0] = "ERROR HERE";
+//                Log.d("Send Error here", error.toString());
+//            }
+//        });
+//
+//        queue.add(stringRequest);
 
-                        EventListAdapter customAdaptor = new EventListAdapter(getApplicationContext(),
-                                R.layout.event_summary, pokemonImgUrl, pokemonName);
-                        list.setAdapter(customAdaptor);
-                        list.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
-                    }
-                }, new Response.ErrorListener() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.0.179:8081/getExercises/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        // below line is to create an instance for our retrofit api class.
+        MyAPIServiceTesting retrofitAPI = retrofit.create(MyAPIServiceTesting.class);
+
+        // calling a method to create a post and passing our modal class.
+        Call<List<ExerciseOnlyName>> call = retrofitAPI.getExercises(mDate);
+
+        // on below line we are executing our method.
+        call.enqueue(new Callback<List<ExerciseOnlyName>>() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                pokemonName[0] = "ERROR HERE";
-                Log.d("Send Error here", error.toString());
+            public void onResponse(Call<List<ExerciseOnlyName>> call, Response<List<ExerciseOnlyName>> response) {
+
+                for (int i = 0; i < response.body().size(); i++) {
+                    name.add(response.body().get(i).getExercises());
+                }
+
+                Log.d("Number that we want", name.toString());
+                TextView showText = findViewById(R.id.textView);
+                showText.setText(mDate);
+                RecyclerView list = (RecyclerView) findViewById(R.id.event_list_recyclar_view);
+
+                Log.d("Test1", ShowEventActivity.this.toString());
+                EventListAdapter customAdaptor = new EventListAdapter(ShowEventActivity.this,
+                        R.layout.event_summary, pokemonImgUrl, name, mDate);
+                list.setAdapter(customAdaptor);
+                list.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
+
+            }
+
+            @Override
+            public void onFailure(Call<List<ExerciseOnlyName>> call, Throwable t) {
+
+
             }
         });
-
-        queue.add(stringRequest);
-
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,future,future);
-//
-//        // Add the request to the RequestQueue.
-//        queue.add(stringRequest);
-//
-//        try {
-//            String response = future.get(1, TimeUnit.SECONDS);
-//            Log.d("Result", response);
-//            // do something with response
-//            pokemonName[0] = response;
-//        } catch (InterruptedException e) {
-//            // handle the error
-//            Log.d("Error here", e.toString());
-//        } catch (ExecutionException e) {
-//            // handle the error
-//            Log.d("Error here", e.toString());
-//        } catch (TimeoutException e) {
-//            Log.d("Error here",e.toString());
-//            e.printStackTrace();
-//        }
 
 
 //        TextView showText = findViewById(R.id.textView);

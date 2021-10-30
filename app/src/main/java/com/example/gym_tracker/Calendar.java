@@ -62,11 +62,11 @@ public class Calendar extends AppCompatActivity {
 
         MyAPIServiceTesting fakeAPIService = retrofit.create(MyAPIServiceTesting.class);
 
-        Call<Testing> call = fakeAPIService.getMyDataByPost();
+        Call<ExerciseOnlyName> call = fakeAPIService.getMyDataByPost();
 
-        call.enqueue(new Callback<Testing>() {
+        call.enqueue(new Callback<ExerciseOnlyName>() {
             @Override
-            public void onResponse(Call<Testing> call, Response<Testing> response) {
+            public void onResponse(Call<ExerciseOnlyName> call, Response<ExerciseOnlyName> response) {
                 Log.d("TESTING AR", "exercise: " + response.body().getExercises());
 
             }

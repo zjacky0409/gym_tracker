@@ -18,7 +18,7 @@ public class DataTesting {
         this.name = name;
     }
 
-    public int getSet () {
+    public int getSet() {
         return set;
     }
 

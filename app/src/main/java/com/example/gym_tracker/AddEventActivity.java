@@ -22,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AddEventActivity extends AppCompatActivity {
 
     public String mDate;
+    public String mName;
     public List<Exercise> exerciseList;
 
     @Override
@@ -31,8 +32,10 @@ public class AddEventActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         mDate = bundle.getString("Date");
+        mName = bundle.getString("Name");
 
-        getData();
+
+        // getData();
 
         TextView name = findViewById(R.id.event_name);
         TextView set = findViewById(R.id.set);
@@ -61,6 +64,39 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
+        if(mName != null){
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://192.168.0.179:8081/getSingleEvent/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            MyAPIServiceTesting retrofitAPI = retrofit.create(MyAPIServiceTesting.class);
+
+            Call<Exercise> call = retrofitAPI.getSingleEvent(mDate,mName);
+
+            // on below line we are executing our method.
+            call.enqueue(new Callback<Exercise>() {
+                @Override
+                public void onResponse(Call<Exercise> call, Response<Exercise> response) {
+
+                     name.setText(response.body().getName());
+                     set.setText(response.body().getSet()+"");
+                     rest_time.setText(response.body().getRest_time());
+                     remark.setText(response.body().getRemark());
+                     rpe.setText(response.body().getRpe()+"");
+                     rir.setText(response.body().getRir()+"");
+                     weight.setText(response.body().getWeight()+"");
+
+                }
+
+                @Override
+                public void onFailure(Call<Exercise> call, Throwable t) {
+
+
+                }
+            });
+
+        }
+
         addEventBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -71,7 +107,7 @@ public class AddEventActivity extends AppCompatActivity {
                     if (lbs_btn.isChecked()) {
                         postData(name.getText().toString(),
                                 Double.parseDouble(set.getText().toString()),
-                                Double.parseDouble(weight.getText().toString())/2.2,
+                                Double.parseDouble(weight.getText().toString()) / 2.2,
                                 rest_time.getText().toString(),
                                 Double.parseDouble(rpe.getText().toString()),
                                 Double.parseDouble(rir.getText().toString()),
@@ -136,7 +172,7 @@ public class AddEventActivity extends AppCompatActivity {
         MyAPIServiceTesting retrofitAPI = retrofit.create(MyAPIServiceTesting.class);
 
         // passing data from our text fields to our modal class.
-        Exercise modal = new Exercise(name, set, weight, rest_time, rpe, rir, remark,mDate);
+        Exercise modal = new Exercise(name, set, weight, rest_time, rpe, rir, remark, mDate);
 
         // calling a method to create a post and passing our modal class.
         Call<List<Exercise>> call = retrofitAPI.createData(modal);
@@ -146,12 +182,12 @@ public class AddEventActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Exercise>> call, Response<List<Exercise>> response) {
 
-                Log.d("The number that I want",response.body().size()+"");
-                for(int i = 0; i<response.body().size()-1;i++){
+                Log.d("The number that I want", response.body().size() + "");
+                for (int i = 0; i < response.body().size() - 1; i++) {
                     Log.d("--------------------", "----------------------");
                     Log.d("response name", response.body().get(i).getName());
                     Log.d("response set", response.body().get(i).getSet() + "");
-                    Log.d("response rir", response.body().get(i).getRir()+"");
+                    Log.d("response rir", response.body().get(i).getRir() + "");
                     Log.d("response rpe", response.body().get(i).getRpe() + "");
                     Log.d("response remark", response.body().get(i).getRemark());
                     Log.d("response weight", response.body().get(i).getWeight() + "");
@@ -169,7 +205,7 @@ public class AddEventActivity extends AppCompatActivity {
         });
     }
 
-    private void getData(){
+    private void getData() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.0.179:8081/addEvent/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -185,12 +221,12 @@ public class AddEventActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Exercise>> call, Response<List<Exercise>> response) {
 
-                Log.d("The number that I want",response.body().size()+"");
-                for(int i = 0; i<response.body().size()-1;i++){
+                Log.d("The number that I want", response.body().size() + "");
+                for (int i = 0; i < response.body().size() - 1; i++) {
                     Log.d("--------------------", "----------------------");
                     Log.d("response name", response.body().get(i).getName());
                     Log.d("response set", response.body().get(i).getSet() + "");
-                    Log.d("response rir", response.body().get(i).getRir()+"");
+                    Log.d("response rir", response.body().get(i).getRir() + "");
                     Log.d("response rpe", response.body().get(i).getRpe() + "");
                     Log.d("response remark", response.body().get(i).getRemark());
                     Log.d("response weight", response.body().get(i).getWeight() + "");
