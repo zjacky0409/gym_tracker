@@ -8,7 +8,7 @@ gym_tracker helps people to keep track of my gym performance
 
 6/10 create a simple main page. 
 
-build a add event function there is a key point --> creatical point --> let the user to compare i.e. running --> time, bench --> weight .....
+build a add event function there is a key point --> special point --> let the user to compare i.e. running --> time, bench --> weight .....
 
 In the report side, we just select the event and downlaod data from server, then i compare it.
 
@@ -29,4 +29,6 @@ In the report side, we just select the event and downlaod data from server, then
 25/10 build a exercise format and send it to backend
 
 29/10 build another post request to backend and get the data then store it into a list
+
+30/10 support edit function
 
