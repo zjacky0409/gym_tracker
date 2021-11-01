@@ -1,5 +1,7 @@
 package com.example.gym_tracker;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -193,6 +195,13 @@ public class AddEventActivity extends AppCompatActivity {
                     Log.d("response weight", response.body().get(i).getWeight() + "");
                 }
                 // Log.d("Number that we want",response.body().length);
+                Intent replyIntent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString("Finish", "true");
+                replyIntent.putExtras(bundle);
+
+                setResult(RESULT_OK, replyIntent);
+                finish();
 
 
             }

@@ -32,3 +32,5 @@ In the report side, we just select the event and downlaod data from server, then
 
 30/10 support edit function
 
+1/11 reload the showEventActivity() after adding an event successfully. --> noted that is startActivityForResult() outdated??? haha
+

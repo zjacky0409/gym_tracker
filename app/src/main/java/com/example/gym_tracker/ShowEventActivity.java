@@ -1,5 +1,6 @@
 package com.example.gym_tracker;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -149,12 +150,26 @@ public class ShowEventActivity extends AppCompatActivity {
     }
 
     public void goToAddEventActivity(View view) {
-
-
         Intent intent = new Intent(this, AddEventActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("Date", mDate);
         intent.putExtras(bundle);
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
+
+    public void reloadThePage(){
+        finish();
+        startActivity(getIntent());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String result = data.getExtras().getString("Finish");
+        Log.d("result", result);
+        if(result.equals("true")){
+            reloadThePage();
+        }
+    }
+
 }

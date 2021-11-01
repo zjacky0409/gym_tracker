@@ -99,12 +99,12 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public void goToAddEvent(int position) {
-        Intent intent = new Intent(context, AddEventActivity.class);
+        Intent intent = new Intent(this.context, AddEventActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("Date", mDate);
         bundle.putString("Name", name.get(position));
         intent.putExtras(bundle);
-        ((Activity) this.context).startActivity(intent);
+        ((Activity) this.context).startActivityForResult(intent, 1);
     }
 
 }
