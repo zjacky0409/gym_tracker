@@ -34,3 +34,5 @@ In the report side, we just select the event and downlaod data from server, then
 
 1/11 reload the showEventActivity() after adding an event successfully. --> noted that is startActivityForResult() outdated??? haha
 
+2/11 add a new activity call showTipsActivity. It help user to store the tips.
+

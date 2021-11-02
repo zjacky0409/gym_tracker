@@ -1,6 +1,5 @@
 package com.example.gym_tracker;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -66,27 +65,27 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
-        if(mName != null){
+        if (mName != null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://192.168.0.179:8081/getSingleEvent/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-            MyAPIServiceTesting retrofitAPI = retrofit.create(MyAPIServiceTesting.class);
+            MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
 
-            Call<Exercise> call = retrofitAPI.getSingleEvent(mDate,mName);
+            Call<Exercise> call = retrofitAPI.getSingleEvent(mDate, mName);
 
             // on below line we are executing our method.
             call.enqueue(new Callback<Exercise>() {
                 @Override
                 public void onResponse(Call<Exercise> call, Response<Exercise> response) {
 
-                     name.setText(response.body().getName());
-                     set.setText(response.body().getSet()+"");
-                     rest_time.setText(response.body().getRest_time());
-                     remark.setText(response.body().getRemark());
-                     rpe.setText(response.body().getRpe()+"");
-                     rir.setText(response.body().getRir()+"");
-                     weight.setText(response.body().getWeight()+"");
+                    name.setText(response.body().getName());
+                    set.setText(response.body().getSet() + "");
+                    rest_time.setText(response.body().getRest_time());
+                    remark.setText(response.body().getRemark());
+                    rpe.setText(response.body().getRpe() + "");
+                    rir.setText(response.body().getRir() + "");
+                    weight.setText(response.body().getWeight() + "");
 
                 }
 
@@ -171,7 +170,7 @@ public class AddEventActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         // below line is to create an instance for our retrofit api class.
-        MyAPIServiceTesting retrofitAPI = retrofit.create(MyAPIServiceTesting.class);
+        MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
 
         // passing data from our text fields to our modal class.
         Exercise modal = new Exercise(name, set, weight, rest_time, rpe, rir, remark, mDate);
@@ -219,7 +218,7 @@ public class AddEventActivity extends AppCompatActivity {
                 .baseUrl("http://192.168.0.179:8081/addEvent/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        MyAPIServiceTesting retrofitAPI = retrofit.create(MyAPIServiceTesting.class);
+        MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
 
 
         // calling a method to create a post and passing our modal class.

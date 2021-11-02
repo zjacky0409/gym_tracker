@@ -2,11 +2,11 @@ package com.example.gym_tracker;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,12 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Calendar extends AppCompatActivity {
 
@@ -43,8 +37,8 @@ public class Calendar extends AppCompatActivity {
             //important: month is from 0 to 11
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 date = day + "-" + (month + 1) + "-" + year;
-                Log.d("Data I want", date);
                 show_date.setText(date);
+                Toast.makeText(getApplicationContext(), "You have selected " + date, Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -55,27 +49,28 @@ public class Calendar extends AppCompatActivity {
             }
         });
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.179:8081/testingAgain/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        MyAPIServiceTesting fakeAPIService = retrofit.create(MyAPIServiceTesting.class);
-
-        Call<ExerciseOnlyName> call = fakeAPIService.getMyDataByPost();
-
-        call.enqueue(new Callback<ExerciseOnlyName>() {
-            @Override
-            public void onResponse(Call<ExerciseOnlyName> call, Response<ExerciseOnlyName> response) {
-                Log.d("TESTING AR", "exercise: " + response.body().getExercises());
-
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
-                Log.d("ERROR", "response: " + t.toString());
-            }
-        });
+        // An example to show the usage of Retrofit
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("http://192.168.0.179:8081/testingAgain/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        MyAPIService fakeAPIService = retrofit.create(MyAPIService.class);
+//
+//        Call<ExerciseOnlyName> call = fakeAPIService.getMyDataByPost();
+//
+//        call.enqueue(new Callback<ExerciseOnlyName>() {
+//            @Override
+//            public void onResponse(Call<ExerciseOnlyName> call, Response<ExerciseOnlyName> response) {
+//                Log.d("TESTING AR", "exercise: " + response.body().getExercises());
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call call, Throwable t) {
+//                Log.d("ERROR", "response: " + t.toString());
+//            }
+//        });
 
 
     }
@@ -87,4 +82,6 @@ public class Calendar extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+
 }

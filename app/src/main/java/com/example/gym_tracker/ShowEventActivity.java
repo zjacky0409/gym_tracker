@@ -1,6 +1,5 @@
 package com.example.gym_tracker;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +25,6 @@ public class ShowEventActivity extends AppCompatActivity {
 
     String mDate;
 
-    //    String[] pokemonName = new String[]{};
     List<String> name = new ArrayList<String>();
 
     String[] pokemonImgUrl = new String[]{
@@ -104,7 +102,7 @@ public class ShowEventActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         // below line is to create an instance for our retrofit api class.
-        MyAPIServiceTesting retrofitAPI = retrofit.create(MyAPIServiceTesting.class);
+        MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
 
         // calling a method to create a post and passing our modal class.
         Call<List<ExerciseOnlyName>> call = retrofitAPI.getExercises(mDate);
@@ -121,7 +119,7 @@ public class ShowEventActivity extends AppCompatActivity {
                 Log.d("Number that we want", name.toString());
                 TextView showText = findViewById(R.id.textView);
                 showText.setText(mDate);
-                RecyclerView list = (RecyclerView) findViewById(R.id.event_list_recyclar_view);
+                RecyclerView list = findViewById(R.id.event_list_recyclar_view);
 
                 Log.d("Test1", ShowEventActivity.this.toString());
                 EventListAdapter customAdaptor = new EventListAdapter(ShowEventActivity.this,
@@ -154,10 +152,10 @@ public class ShowEventActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("Date", mDate);
         intent.putExtras(bundle);
-        startActivityForResult(intent,1);
+        startActivityForResult(intent, 1);
     }
 
-    public void reloadThePage(){
+    public void reloadThePage() {
         finish();
         startActivity(getIntent());
     }
@@ -167,7 +165,7 @@ public class ShowEventActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         String result = data.getExtras().getString("Finish");
         Log.d("result", result);
-        if(result.equals("true")){
+        if (result.equals("true")) {
             reloadThePage();
         }
     }

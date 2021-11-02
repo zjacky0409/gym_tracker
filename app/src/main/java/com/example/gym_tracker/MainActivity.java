@@ -16,11 +16,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button normalAction = findViewById(R.id.modify_btn);
+        Button tipsAction = findViewById(R.id.view_tips);
 
 
         normalAction.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 goToCalendar(v);
+            }
+        });
+
+        tipsAction.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                goToViewReport(v);
             }
         });
 
@@ -62,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToCalendar(View view) {
         Intent intent = new Intent(this, Calendar.class);
+        startActivity(intent);
+    }
+
+    public void goToViewReport(View view) {
+        Intent intent = new Intent(this, ShowTipsActivity.class);
         startActivity(intent);
     }
 }

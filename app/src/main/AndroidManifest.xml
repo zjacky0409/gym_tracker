@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gym_tracker"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AddEventActivity"></activity>
+        <activity android:name=".AddTips"></activity>
+        <activity android:name=".ShowTipsActivity" />
+        <activity android:name=".AddEventActivity" />
         <activity android:name=".ShowEventActivity" />
         <activity android:name=".Calendar" />
         <activity android:name=".MainActivity">

@@ -11,7 +11,7 @@ import retrofit2.http.POST;
 
 
 // ref from https://square.github.io/retrofit/ and http://tw-hkt.blogspot.com/2020/03/retrofit-java.html
-public interface MyAPIServiceTesting {
+public interface MyAPIService {
 
     // Annotations on the interface methods and its parameters indicate how a request will be handled
     @GET("/posts/1")
@@ -49,6 +49,9 @@ public interface MyAPIServiceTesting {
 
     @FormUrlEncoded // important
     @POST("/getSingleEvent")
-    Call<Exercise> getSingleEvent(@Field("user_name") String date,@Field("name") String name);
+    Call<Exercise> getSingleEvent(@Field("user_name") String date, @Field("name") String name);
+
+    @POST("/getAllExercises")
+    Call<List<ExerciseOnlyName>> getAllExercises();
 
 }
