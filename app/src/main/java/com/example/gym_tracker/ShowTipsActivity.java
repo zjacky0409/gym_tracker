@@ -37,6 +37,7 @@ public class ShowTipsActivity extends AppCompatActivity {
             }
         });
 
+        getSupportActionBar().setTitle("Tips Page");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.0.179:8081/getAllExercises/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -56,7 +57,7 @@ public class ShowTipsActivity extends AppCompatActivity {
                 RecyclerView list = findViewById(R.id.tips_list);
 
                 TipsListAdapter customAdaptor = new TipsListAdapter(ShowTipsActivity.this,
-                        R.layout.event_summary, name);
+                        R.layout.exercise_summary, name);
                 list.setAdapter(customAdaptor);
                 list.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
 

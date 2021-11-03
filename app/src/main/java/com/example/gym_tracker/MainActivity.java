@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         Button normalAction = findViewById(R.id.modify_btn);
         Button tipsAction = findViewById(R.id.view_tips);
 
+        getSupportActionBar().setTitle("Main Page");
 
         normalAction.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

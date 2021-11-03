@@ -48,6 +48,8 @@ public class ShowEventActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         mDate = bundle.getString("Date");
 
+        getSupportActionBar().setTitle("Show Event Page");
+
         Button addEvent = findViewById(R.id.add_event);
         Log.d("Test0", this.toString());
         addEvent.setOnClickListener(new View.OnClickListener() {

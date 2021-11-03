@@ -36,3 +36,5 @@ In the report side, we just select the event and downlaod data from server, then
 
 2/11 add a new activity call showTipsActivity. It help user to store the tips.
 
+3/11 learn how to use a card view(android x) and change the toolbar text!! What is andriodX ????
+

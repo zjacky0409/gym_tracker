@@ -28,6 +28,8 @@ public class Calendar extends AppCompatActivity {
         TextView show_date = findViewById(R.id.show_date);
         Button goToEvent = findViewById(R.id.go_to_event);
 
+        getSupportActionBar().setTitle("Calendar Page");
+
         Date c = java.util.Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("d-M-yyyy", Locale.getDefault());
         date = df.format(c);

@@ -24,7 +24,7 @@ public class TipsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class TipsListViewHolder extends RecyclerView.ViewHolder {
-        private final TextView txt;
+        public final TextView txt;
 
 
         // Event handling registration, page navigation goes here
