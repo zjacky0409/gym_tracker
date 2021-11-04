@@ -38,3 +38,5 @@ In the report side, we just select the event and downlaod data from server, then
 
 3/11 learn how to use a card view(android x) and change the toolbar text!! What is andriodX ????
 
+4/11 build two fragments to show the detail of the tips
+

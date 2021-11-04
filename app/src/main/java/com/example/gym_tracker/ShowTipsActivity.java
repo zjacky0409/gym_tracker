@@ -73,7 +73,8 @@ public class ShowTipsActivity extends AppCompatActivity {
 
 
     public void goToAddTipsActivity(View view) {
-        Intent intent = new Intent(this, AddTips.class);
+        Intent intent = new Intent(this, AddTipsActivity.class);
         startActivity(intent);
     }
+
 }

@@ -40,7 +40,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         // Event handling registration, page navigation goes here
         public EventListViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.txt = itemView.findViewById(R.id.name);
+            this.txt = itemView.findViewById(R.id.name_two);
 
             this.txt.setOnClickListener((view) -> {
                 Log.d("I want it", this.txt.getText().toString());

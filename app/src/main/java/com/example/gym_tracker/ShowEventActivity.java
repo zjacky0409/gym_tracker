@@ -51,53 +51,13 @@ public class ShowEventActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Show Event Page");
 
         Button addEvent = findViewById(R.id.add_event);
-        Log.d("Test0", this.toString());
+
         addEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 goToAddEventActivity(v);
             }
         });
 
-
-        // ref from http://tw-hkt.blogspot.com/2020/03/retrofit-java.html
-        // Instantiate the RequestQueue.
-        // RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://192.168.0.179:8081/";
-
-//        RequestFuture<String> future = RequestFuture.newFuture();
-        // Request a string response from the provided URL.
-//        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, url, null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//                            JSONArray errorArray = response.getJSONArray("exercises");
-//                            for (int i = 0; i < errorArray.length(); i++) {
-//                                Log.d("THE exercises = ", (String) errorArray.optString(i));
-//                                pokemonName[i] = errorArray.optString(i);
-//                            }
-//                        } catch (JSONException e) {
-//                            Log.d("Error here", e.toString());
-//                            e.printStackTrace();
-//                        }
-//                        TextView showText = findViewById(R.id.textView);
-//                        showText.setText(mDate);
-//                        RecyclerView list = (RecyclerView) findViewById(R.id.event_list_recyclar_view);
-//
-//                        EventListAdapter customAdaptor = new EventListAdapter(getApplicationContext(),
-//                                R.layout.event_summary, pokemonImgUrl, pokemonName,mDate);
-//                        list.setAdapter(customAdaptor);
-//                        list.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                pokemonName[0] = "ERROR HERE";
-//                Log.d("Send Error here", error.toString());
-//            }
-//        });
-//
-//        queue.add(stringRequest);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.0.179:8081/getExercises/")
@@ -138,13 +98,13 @@ public class ShowEventActivity extends AppCompatActivity {
             }
         });
 
-
+//        // the problem of async and await, so we cannot put code here
 //        TextView showText = findViewById(R.id.textView);
 //        showText.setText(mDate);
 //        RecyclerView list = (RecyclerView) findViewById(R.id.event_list_recyclar_view);
 //
 //        EventListAdapter customAdaptor = new EventListAdapter(this,
-//                R.layout.event_summary, pokemonImgUrl, pokemonName);
+//                R.layout.event_summary, pokemonImgUrl, name);
 //        list.setAdapter(customAdaptor);
 //        list.setLayoutManager(new GridLayoutManager(this, 1));
     }
@@ -154,9 +114,10 @@ public class ShowEventActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("Date", mDate);
         intent.putExtras(bundle);
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, 1); // warning here
     }
 
+    // reload the page and update the data
     public void reloadThePage() {
         finish();
         startActivity(getIntent());
@@ -166,10 +127,50 @@ public class ShowEventActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         String result = data.getExtras().getString("Finish");
-        Log.d("result", result);
         if (result.equals("true")) {
             reloadThePage();
         }
     }
+
+// explain the usage of volley
+//    public void downloadDataExamlple(){
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//         String url = "http://192.168.0.179:8081/";
+//
+//        RequestFuture<String> future = RequestFuture.newFuture();
+//         // Request a string response from the provided URL.
+//        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+//                            JSONArray errorArray = response.getJSONArray("exercises");
+//                            for (int i = 0; i < errorArray.length(); i++) {
+//                                Log.d("THE exercises = ", (String) errorArray.optString(i));
+//                                name.add(errorArray.optString(i));
+//                            }
+//                        } catch (JSONException e) {
+//                            Log.d("Error here", e.toString());
+//                            e.printStackTrace();
+//                        }
+//                        TextView showText = findViewById(R.id.textView);
+//                        showText.setText(mDate);
+//                        RecyclerView list = (RecyclerView) findViewById(R.id.event_list_recyclar_view);
+//
+//                        EventListAdapter customAdaptor = new EventListAdapter(getApplicationContext(),
+//                                R.layout.event_summary, pokemonImgUrl, name,mDate);
+//                        list.setAdapter(customAdaptor);
+//                        list.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.d("Send Error here", error.toString());
+//            }
+//        });
+//
+//        queue.add(stringRequest);
+//
+//    }
 
 }

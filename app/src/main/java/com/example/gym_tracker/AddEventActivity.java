@@ -24,7 +24,6 @@ public class AddEventActivity extends AppCompatActivity {
 
     public String mDate;
     public String mName;
-    public List<Exercise> exerciseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +33,6 @@ public class AddEventActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         mDate = bundle.getString("Date");
         mName = bundle.getString("Name");
-
-
-        // getData();
 
         TextView name = findViewById(R.id.event_name);
         TextView set = findViewById(R.id.set);

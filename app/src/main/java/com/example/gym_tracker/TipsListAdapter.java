@@ -1,6 +1,7 @@
 package com.example.gym_tracker;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +25,18 @@ public class TipsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class TipsListViewHolder extends RecyclerView.ViewHolder {
-        public final TextView txt;
-
+        TextView txt;
 
         // Event handling registration, page navigation goes here
         public TipsListViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.txt = itemView.findViewById(R.id.name);
+            this.txt = itemView.findViewById(R.id.name_two);
+            txt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    goToTipsDetailActivity(view);
+                }
+            });
         }
 
 
@@ -62,6 +68,12 @@ public class TipsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemCount() {
         return name.size();
+    }
+
+
+    public void goToTipsDetailActivity(View view) {
+        Intent intent = new Intent(context, ShowTipsDetailActivity.class);
+        this.context.startActivity(intent);
     }
 
 }
