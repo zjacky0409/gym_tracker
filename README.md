@@ -40,3 +40,5 @@ In the report side, we just select the event and downlaod data from server, then
 
 4/11 build two fragments to show the detail of the tips
 
+6/11 start to design a full version backend
+

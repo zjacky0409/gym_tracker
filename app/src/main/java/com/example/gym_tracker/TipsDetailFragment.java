@@ -20,6 +20,9 @@ public class TipsDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    // Why we put get bundle here
+    // because we want to make sure that bundle has been created
+    // if we put it on onCreate, it may not been created
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
