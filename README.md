@@ -42,3 +42,5 @@ In the report side, we just select the event and downlaod data from server, then
 
 6/11 start to design a full version backend
 
+10/11 add a rich text editor implementation 'jp.wasabeef:richeditor-android:2.0.0'
+
