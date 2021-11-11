@@ -1,9 +1,12 @@
 package com.example.gym_tracker;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -26,6 +29,11 @@ public class TipsDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tips_detail, container, false);
+
+        final View rootView = inflater.inflate(R.layout.fragment_tips_detail, container, false);
+
+        TextView shownHints = rootView.findViewById(R.id.hints_preview);
+        shownHints.setText(Html.fromHtml("<b>mPreview</b>"));
+        return rootView;
     }
 }
