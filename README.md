@@ -44,3 +44,4 @@ In the report side, we just select the event and downlaod data from server, then
 
 10/11 add a rich text editor implementation 'jp.wasabeef:richeditor-android:2.0.0'
 
+12/11 A Full Version for Tips 1. add tips, 2. del tips 3. edit tips.

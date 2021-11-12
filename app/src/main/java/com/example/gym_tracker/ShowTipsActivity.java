@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ShowTipsActivity extends AppCompatActivity {
 
 
-    List<String> name = new ArrayList<String>();
+    List<Tips> name = new ArrayList<Tips>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +39,20 @@ public class ShowTipsActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Tips Page");
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.179:8081/getAllExercises/")
+                .baseUrl("http://192.168.0.179:3000/getExerciseList/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
 
-        Call<List<ExerciseOnlyName>> call = retrofitAPI.getAllExercises();
+        Call<List<Tips>> call = retrofitAPI.getTips();
 
         // on below line we are executing our method.
-        call.enqueue(new Callback<List<ExerciseOnlyName>>() {
+        call.enqueue(new Callback<List<Tips>>() {
             @Override
-            public void onResponse(Call<List<ExerciseOnlyName>> call, Response<List<ExerciseOnlyName>> response) {
+            public void onResponse(Call<List<Tips>> call, Response<List<Tips>> response) {
 
                 for (int i = 0; i < response.body().size(); i++) {
-                    name.add(response.body().get(i).getExercises());
+                    name.add(response.body().get(i));
                 }
                 RecyclerView list = findViewById(R.id.tips_list);
 
@@ -64,17 +64,27 @@ public class ShowTipsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<ExerciseOnlyName>> call, Throwable t) {
+            public void onFailure(Call<List<Tips>> call, Throwable t) {
 
 
             }
         });
     }
 
+    public void reloadThePage() {
+        finish();
+        startActivity(getIntent());
+    }
 
     public void goToAddTipsActivity(View view) {
         Intent intent = new Intent(this, AddTipsActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        reloadThePage();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.gym_tracker;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class YoutubeFragment extends Fragment {
     // Why we put get bundle here
     // because we want to make sure that bundle has been created
     // if we put it on onCreate, it may not been created
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,21 +40,19 @@ public class YoutubeFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        Log.d("ERROR", String.valueOf(getArguments()));
-//        try {
-//            destX = getArguments().getFloat("destX");
-//            destY = getArguments().getFloat("destY");
-//            foodName = getArguments().getString("foodName");
-//            locationName = getArguments().getString("locationName");
-//        } catch (Exception e) {
-//            destX = 0;
-//            destY = 0;
-//        }
+        try {
+            url = getArguments().getString("yt_link");
+            Log.d("yt_link", url);
+
+        } catch (Exception e) {
+            url = "https://www.youtube.com/watch?v=qlvE_owkBwI&list=RDSX_ViT4Ra7k&index=4";
+
+        }
         WebView myWebView = getActivity().findViewById(R.id.yt);
         myWebView.setWebViewClient(new WebViewController());
         myWebView.getSettings().setJavaScriptEnabled(true);
 
-        myWebView.loadUrl("https://www.youtube.com/watch?v=qlvE_owkBwI&list=RDSX_ViT4Ra7k&index=4");
+        myWebView.loadUrl(url);
 
     }
 

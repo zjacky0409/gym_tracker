@@ -54,4 +54,16 @@ public interface MyAPIService {
     @POST("/getAllExercises")
     Call<List<ExerciseOnlyName>> getAllExercises();
 
+
+    ///////////////////////////// The Latest Version ///////////////////////////////////////////
+    @POST("/exercises/addExercise")
+    Call<CheckSuccess> createTips(@Body Tips data);
+
+    @POST("/exercises/getExerciseList")
+    Call<List<Tips>> getTips();
+
+    @FormUrlEncoded // important
+    @POST("/exercises/delete")
+    Call<CheckSuccess> delTips(@Field("name") String name);
+
 }
