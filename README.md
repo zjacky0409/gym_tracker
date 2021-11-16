@@ -2,6 +2,8 @@
 
 This is a project which extends from my school project. I add some new features for this app. Moreover, this app is Tailor-made for workout/gym. On the other hand, I also build a backend server for this app instead of using Firebase. 
 
+The Github Link of my backend server: https://github.com/zjacky0409/my_app_backend 
+
 I am a gym lover. I want to build an app to keep track my gym record. 
 
 gym_tracker helps people to keep track of my gym performance
