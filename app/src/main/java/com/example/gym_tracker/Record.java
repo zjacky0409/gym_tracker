@@ -1,6 +1,6 @@
 package com.example.gym_tracker;
 
-public class Exercise {
+public class Record {
 
     private String date;
     private String name;
@@ -19,7 +19,7 @@ public class Exercise {
         this.remark = remark;
     }
 
-    public Exercise(String name, double set, double weight, String rest_time, double rpe, double rir, String remark, String Date) {
+    public Record(String name, double set, double weight, String rest_time, double rpe, double rir, String remark, String Date) {
         this.name = name;
         this.set = set;
         this.weight = weight;

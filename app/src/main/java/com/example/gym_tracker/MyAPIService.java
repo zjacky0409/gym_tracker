@@ -25,34 +25,34 @@ public interface MyAPIService {
 
     // note that POST Vs GET
     @GET("/testing")
-    Call<ExerciseOnlyName> getMyData();
+    Call<RecordOnlyName> getMyData();
 
     // note that POST Vs GET
     @POST("/testingAgain")
-    Call<ExerciseOnlyName> getMyDataByPost();
+    Call<RecordOnlyName> getMyDataByPost();
 
 //    @POST("/addEvent")
 //    Call<DataTesting>createData(@Body DataTesting data);
 
     @POST("/addEvent")
-    Call<List<Exercise>> createData(@Body Exercise data);
+    Call<List<Record>> createData(@Body Record data);
 
     // @Field("user_name") String user_name
     // getData(//we want to send what kind of field to backend)
     @FormUrlEncoded // important
     @POST("/getEvent")
-    Call<List<Exercise>> getData(@Field("user_name") String date);
+    Call<List<Record>> getData(@Field("user_name") String date);
 
     @FormUrlEncoded // important
     @POST("/getExercises")
-    Call<List<ExerciseOnlyName>> getExercises(@Field("user_name") String date);
+    Call<List<RecordOnlyName>> getExercises(@Field("user_name") String date);
 
     @FormUrlEncoded // important
     @POST("/getSingleEvent")
-    Call<Exercise> getSingleEvent(@Field("user_name") String date, @Field("name") String name);
+    Call<Record> getSingleEvent(@Field("user_name") String date, @Field("name") String name);
 
     @POST("/getAllExercises")
-    Call<List<ExerciseOnlyName>> getAllExercises();
+    Call<List<RecordOnlyName>> getAllExercises();
 
 
     ///////////////////////////// The Latest Version ///////////////////////////////////////////

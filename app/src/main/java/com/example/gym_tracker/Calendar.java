@@ -62,7 +62,7 @@ public class Calendar extends AppCompatActivity {
     }
 
     public void goToEventList(View view) {
-        Intent intent = new Intent(this, ShowEventActivity.class);
+        Intent intent = new Intent(this, ShowRecordActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("Date", date);
         intent.putExtras(bundle);
@@ -80,11 +80,11 @@ public class Calendar extends AppCompatActivity {
 
         MyAPIService fakeAPIService = retrofit.create(MyAPIService.class);
 
-        Call<ExerciseOnlyName> call = fakeAPIService.getMyDataByPost();
+        Call<RecordOnlyName> call = fakeAPIService.getMyDataByPost();
 
-        call.enqueue(new Callback<ExerciseOnlyName>() {
+        call.enqueue(new Callback<RecordOnlyName>() {
             @Override
-            public void onResponse(Call<ExerciseOnlyName> call, Response<ExerciseOnlyName> response) {
+            public void onResponse(Call<RecordOnlyName> call, Response<RecordOnlyName> response) {
                 Log.d("TESTING AR", "exercise: " + response.body().getExercises());
 
             }

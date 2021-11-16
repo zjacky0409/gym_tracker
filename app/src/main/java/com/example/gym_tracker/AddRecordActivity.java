@@ -20,7 +20,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AddEventActivity extends AppCompatActivity {
+public class AddRecordActivity extends AppCompatActivity {
 
     public String mDate;
     public String mName;
@@ -68,12 +68,12 @@ public class AddEventActivity extends AppCompatActivity {
                     .build();
             MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
 
-            Call<Exercise> call = retrofitAPI.getSingleEvent(mDate, mName);
+            Call<Record> call = retrofitAPI.getSingleEvent(mDate, mName);
 
             // on below line we are executing our method.
-            call.enqueue(new Callback<Exercise>() {
+            call.enqueue(new Callback<Record>() {
                 @Override
-                public void onResponse(Call<Exercise> call, Response<Exercise> response) {
+                public void onResponse(Call<Record> call, Response<Record> response) {
 
                     name.setText(response.body().getName());
                     set.setText(response.body().getSet() + "");
@@ -86,9 +86,8 @@ public class AddEventActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<Exercise> call, Throwable t) {
-
-
+                public void onFailure(Call<Record> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), "Fail To download data from backend server", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -169,15 +168,15 @@ public class AddEventActivity extends AppCompatActivity {
         MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
 
         // passing data from our text fields to our modal class.
-        Exercise modal = new Exercise(name, set, weight, rest_time, rpe, rir, remark, mDate);
+        Record modal = new Record(name, set, weight, rest_time, rpe, rir, remark, mDate);
 
         // calling a method to create a post and passing our modal class.
-        Call<List<Exercise>> call = retrofitAPI.createData(modal);
+        Call<List<Record>> call = retrofitAPI.createData(modal);
 
         // on below line we are executing our method.
-        call.enqueue(new Callback<List<Exercise>>() {
+        call.enqueue(new Callback<List<Record>>() {
             @Override
-            public void onResponse(Call<List<Exercise>> call, Response<List<Exercise>> response) {
+            public void onResponse(Call<List<Record>> call, Response<List<Record>> response) {
 
                 Log.d("The number that I want", response.body().size() + "");
                 for (int i = 0; i < response.body().size() - 1; i++) {
@@ -202,13 +201,15 @@ public class AddEventActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Exercise>> call, Throwable t) {
+            public void onFailure(Call<List<Record>> call, Throwable t) {
 
 
             }
         });
     }
 
+
+    //  a function for ref only
     private void getData() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.0.179:8081/addEvent/")
@@ -218,12 +219,12 @@ public class AddEventActivity extends AppCompatActivity {
 
 
         // calling a method to create a post and passing our modal class.
-        Call<List<Exercise>> call = retrofitAPI.getData("111");
+        Call<List<Record>> call = retrofitAPI.getData("111");
 
         // on below line we are executing our method.
-        call.enqueue(new Callback<List<Exercise>>() {
+        call.enqueue(new Callback<List<Record>>() {
             @Override
-            public void onResponse(Call<List<Exercise>> call, Response<List<Exercise>> response) {
+            public void onResponse(Call<List<Record>> call, Response<List<Record>> response) {
 
                 Log.d("The number that I want", response.body().size() + "");
                 for (int i = 0; i < response.body().size() - 1; i++) {
@@ -241,7 +242,7 @@ public class AddEventActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Exercise>> call, Throwable t) {
+            public void onFailure(Call<List<Record>> call, Throwable t) {
 
 
             }

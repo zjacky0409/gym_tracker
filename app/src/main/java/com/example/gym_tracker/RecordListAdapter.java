@@ -17,18 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecordListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    String[] imgUrl;
     List<String> name = new ArrayList<String>();
     Context context;
     int itemViewResID;
     String mDate;
 
-    EventListAdapter(Context context, int itemViewResID, String[] imgUrl, List<String> name, String mDate) {
+    RecordListAdapter(Context context, int itemViewResID, List<String> name, String mDate) {
         this.context = context;
         this.itemViewResID = itemViewResID;
-        this.imgUrl = imgUrl;
         this.name = name;
         this.mDate = mDate;
     }
@@ -99,7 +97,7 @@ public class EventListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public void goToAddEvent(int position) {
-        Intent intent = new Intent(this.context, AddEventActivity.class);
+        Intent intent = new Intent(this.context, AddRecordActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("Date", mDate);
         bundle.putString("Name", name.get(position));

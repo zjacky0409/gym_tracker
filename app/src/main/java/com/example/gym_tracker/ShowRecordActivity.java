@@ -20,24 +20,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ShowEventActivity extends AppCompatActivity {
+public class ShowRecordActivity extends AppCompatActivity {
 
 
     String mDate;
 
     List<String> name = new ArrayList<String>();
-
-    String[] pokemonImgUrl = new String[]{
-            "https://img.pokemondb.net/artwork/large/pikachu.jpg",
-            "https://img.pokemondb.net/artwork/squirtle.jpg",
-            "https://img.pokemondb.net/artwork/large/tauros.jpg",
-            "https://img.pokemondb.net/artwork/large/bouffalant.jpg",
-            "https://img.pokemondb.net/artwork/terrakion.jpg"
-            , "https://img.pokemondb.net/artwork/rattata.jpg"
-            , "https://img.pokemondb.net/artwork/raticate.jpg"
-            , "https://img.pokemondb.net/artwork/patrat.jpg"
-            , "https://img.pokemondb.net/artwork/pichu.jpg"
-    };
 
 
     @Override
@@ -67,12 +55,12 @@ public class ShowEventActivity extends AppCompatActivity {
         MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
 
         // calling a method to create a post and passing our modal class.
-        Call<List<ExerciseOnlyName>> call = retrofitAPI.getExercises(mDate);
+        Call<List<RecordOnlyName>> call = retrofitAPI.getExercises(mDate);
 
         // on below line we are executing our method.
-        call.enqueue(new Callback<List<ExerciseOnlyName>>() {
+        call.enqueue(new Callback<List<RecordOnlyName>>() {
             @Override
-            public void onResponse(Call<List<ExerciseOnlyName>> call, Response<List<ExerciseOnlyName>> response) {
+            public void onResponse(Call<List<RecordOnlyName>> call, Response<List<RecordOnlyName>> response) {
 
                 for (int i = 0; i < response.body().size(); i++) {
                     name.add(response.body().get(i).getExercises());
@@ -83,16 +71,16 @@ public class ShowEventActivity extends AppCompatActivity {
                 showText.setText(mDate);
                 RecyclerView list = findViewById(R.id.event_list_recyclar_view);
 
-                Log.d("Test1", ShowEventActivity.this.toString());
-                EventListAdapter customAdaptor = new EventListAdapter(ShowEventActivity.this,
-                        R.layout.event_summary, pokemonImgUrl, name, mDate);
+                Log.d("Test1", ShowRecordActivity.this.toString());
+                RecordListAdapter customAdaptor = new RecordListAdapter(ShowRecordActivity.this,
+                        R.layout.event_summary, name, mDate);
                 list.setAdapter(customAdaptor);
                 list.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
 
             }
 
             @Override
-            public void onFailure(Call<List<ExerciseOnlyName>> call, Throwable t) {
+            public void onFailure(Call<List<RecordOnlyName>> call, Throwable t) {
 
 
             }
@@ -110,7 +98,7 @@ public class ShowEventActivity extends AppCompatActivity {
     }
 
     public void goToAddEventActivity(View view) {
-        Intent intent = new Intent(this, AddEventActivity.class);
+        Intent intent = new Intent(this, AddRecordActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("Date", mDate);
         intent.putExtras(bundle);

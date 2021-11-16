@@ -2,7 +2,7 @@ package com.example.gym_tracker;
 
 
 // a simple class for my backend server
-public class ExerciseOnlyName {
+public class RecordOnlyName {
     private String exercises;
 
     public String getExercises() {
