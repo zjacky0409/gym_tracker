@@ -1,17 +1,23 @@
 package com.example.gym_tracker;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -24,11 +30,45 @@ public class AddRecordActivity extends AppCompatActivity {
 
     public String mDate;
     public String mName;
+    List<String> name = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_event);
+        setContentView(R.layout.activity_add_record);
+
+
+
+        Retrofit retrofitFirst = new Retrofit.Builder()
+                .baseUrl("http://192.168.0.179:3000/getExerciseList/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        MyAPIService retrofitAPIFirst = retrofitFirst.create(MyAPIService.class);
+
+        Call<List<Tips>> callFirst = retrofitAPIFirst.getTips();
+
+        // on below line we are executing our method.
+        callFirst.enqueue(new Callback<List<Tips>>() {
+            @Override
+            public void onResponse(Call<List<Tips>> call, Response<List<Tips>> response) {
+
+                for (int i = 0; i < response.body().size(); i++) {
+                    name.add(response.body().get(i).getName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Tips>> call, Throwable t) {
+
+
+            }
+        });
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.select_dialog_item,name);
+        AutoCompleteTextView actv =  (AutoCompleteTextView)findViewById(R.id.event_name);
+        actv.setThreshold(1);// Specifies the minimum number of characters the user has to type in the edit box before the drop down list is shown.
+        actv.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
 
         Bundle bundle = getIntent().getExtras();
         mDate = bundle.getString("Date");

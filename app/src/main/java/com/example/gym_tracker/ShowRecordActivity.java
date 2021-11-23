@@ -48,7 +48,7 @@ public class ShowRecordActivity extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.179:8081/getExercises/")
+                .baseUrl("http://192.168.0.179:3000/getExercises/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         // below line is to create an instance for our retrofit api class.
@@ -114,10 +114,15 @@ public class ShowRecordActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String result = data.getExtras().getString("Finish");
-        if (result.equals("true")) {
-            reloadThePage();
+        try{
+            String result = data.getExtras().getString("Finish");
+            if (result.equals("true")) {
+                reloadThePage();
+            }
+        }catch (Exception e){
+            Log.d("No Finish", "No Finsh");
         }
+
     }
 
 // explain the usage of volley
