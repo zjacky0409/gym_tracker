@@ -56,6 +56,8 @@ public interface MyAPIService {
 
 
     ///////////////////////////// The Latest Version ///////////////////////////////////////////
+
+    // for uploading exercise, getting exercises and delete exercises to server
     @POST("/exercises/addExercise")
     Call<CheckSuccess> createTips(@Body Tips data);
 
@@ -65,5 +67,7 @@ public interface MyAPIService {
     @FormUrlEncoded // important
     @POST("/exercises/delete")
     Call<CheckSuccess> delTips(@Field("name") String name);
+
+    // for uploading events, getting events and delete events to server
 
 }

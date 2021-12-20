@@ -50,3 +50,4 @@ In the report side, we just select the event and downlaod data from server, then
 
 23/11 I added a AutoCompleteTextView for the name input(ShowRecordActivity). I will fetch the data from backend first.
 
+20/12 really to upload events record to server
