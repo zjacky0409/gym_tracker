@@ -63,7 +63,7 @@ public class TipsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 public void onClick(View v) {
 
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://192.168.0.179:3000/exercises/delete/")
+                            .baseUrl("http://192.168.0.179:3000/tips/delete/")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                     MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);

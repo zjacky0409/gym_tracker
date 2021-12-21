@@ -127,7 +127,7 @@ public class AddTipsActivity extends AppCompatActivity {
     private void addTipsToBackEnd(String name, String yt_link, String details) {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.179:3000/exercises/addExercise/")
+                .baseUrl("http://192.168.0.179:3000/tips/addTips/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         // below line is to create an instance for our retrofit api class.

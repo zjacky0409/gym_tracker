@@ -39,7 +39,7 @@ public class ShowTipsActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Tips Page");
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.179:3000/getExerciseList/")
+                .baseUrl("http://192.168.0.179:3000/tips/getTipsList/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);

@@ -40,7 +40,7 @@ public class AddRecordActivity extends AppCompatActivity {
 
 
         Retrofit retrofitFirst = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.179:3000/getExerciseList/")
+                .baseUrl("http://192.168.0.179:3000/tips/getTipsList/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         MyAPIService retrofitAPIFirst = retrofitFirst.create(MyAPIService.class);

@@ -58,16 +58,29 @@ public interface MyAPIService {
     ///////////////////////////// The Latest Version ///////////////////////////////////////////
 
     // for uploading exercise, getting exercises and delete exercises to server
-    @POST("/exercises/addExercise")
+    @POST("/tips/addTips")
     Call<CheckSuccess> createTips(@Body Tips data);
 
-    @POST("/exercises/getExerciseList")
+    @POST("/tips/getTipsList")
     Call<List<Tips>> getTips();
 
     @FormUrlEncoded // important
-    @POST("/exercises/delete")
+    @POST("/tips/delete")
     Call<CheckSuccess> delTips(@Field("name") String name);
 
+
+
     // for uploading events, getting events and delete events to server
+    @POST("/record/addRecord")
+    Call<CheckSuccess> createRecords(@Body Record data);
+
+    @FormUrlEncoded // important
+    @POST("/record/getRecordList")
+    Call<List<Tips>> getRecords(@Field("date") String date);
+
+    @FormUrlEncoded // important
+    @POST("/record/deleteRecord")
+    Call<CheckSuccess> delRecord(@Field("name") String name,@Field("date") String date,@Field("set") double set);
+
 
 }
