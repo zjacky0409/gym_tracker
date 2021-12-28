@@ -4,11 +4,11 @@ public class Record {
 
     private String date;
     private String name;
-    private double set;
-    private double weight;
+    private String set;
+    private String weight;
     private String rest_time;
-    private double rpe;
-    private double rir;
+    private String rpe;
+    private String rir;
     private String remark;
 
     public String getRemark() {
@@ -19,7 +19,7 @@ public class Record {
         this.remark = remark;
     }
 
-    public Record(String name, double set, double weight, String rest_time, double rpe, double rir, String remark, String Date) {
+    public Record(String name, String set, String weight, String rest_time, String rpe, String rir, String remark, String Date) {
         this.name = name;
         this.set = set;
         this.weight = weight;
@@ -39,19 +39,19 @@ public class Record {
         this.name = name;
     }
 
-    public double getSet() {
+    public String getSet() {
         return set;
     }
 
-    public void setSet(double set) {
+    public void setSet(String set) {
         this.set = set;
     }
 
-    public double getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
@@ -64,19 +64,19 @@ public class Record {
     }
 
 
-    public double getRir() {
+    public String getRir() {
         return rir;
     }
 
-    public void setRir(double rir) {
+    public void setRir(String rir) {
         this.rir = rir;
     }
 
-    public double getRpe() {
+    public String getRpe() {
         return rpe;
     }
 
-    public void setRpe(double rpe) {
+    public void setRpe(String rpe) {
         this.rpe = rpe;
     }
 

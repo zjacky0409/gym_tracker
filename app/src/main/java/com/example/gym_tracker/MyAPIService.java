@@ -74,6 +74,9 @@ public interface MyAPIService {
     @POST("/record/addRecord")
     Call<CheckSuccess> createRecords(@Body Record data);
 
+    @POST("/record/addRecord")
+    Call<Record> getSingleRecord(@Body String date, String name);
+
     @FormUrlEncoded // important
     @POST("/record/getRecordList")
     Call<List<Tips>> getRecords(@Field("date") String date);

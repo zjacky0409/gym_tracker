@@ -103,7 +103,7 @@ public class AddRecordActivity extends AppCompatActivity {
 
         if (mName != null) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.0.179:8081/getSingleEvent/")
+                    .baseUrl("http://192.168.0.179:3000/getSingleEvent/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
@@ -142,19 +142,19 @@ public class AddRecordActivity extends AppCompatActivity {
                 } else {
                     if (lbs_btn.isChecked()) {
                         postData(name.getText().toString(),
-                                Double.parseDouble(set.getText().toString()),
-                                Double.parseDouble(weight.getText().toString()) / 2.2,
+                               set.getText().toString(),
+                                (Double.parseDouble(weight.getText().toString()) / 2.2)+"",
                                 rest_time.getText().toString(),
-                                Double.parseDouble(rpe.getText().toString()),
-                                Double.parseDouble(rir.getText().toString()),
+                                rpe.getText().toString(),
+                               rir.getText().toString(),
                                 remark.getText().toString());
                     } else {
                         postData(name.getText().toString(),
-                                Double.parseDouble(set.getText().toString()),
-                                Double.parseDouble(weight.getText().toString()),
+                                set.getText().toString(),
+                                weight.getText().toString(),
                                 rest_time.getText().toString(),
-                                Double.parseDouble(rpe.getText().toString()),
-                                Double.parseDouble(rir.getText().toString()),
+                                rpe.getText().toString(),
+                                rir.getText().toString(),
                                 remark.getText().toString());
                     }
 
@@ -198,10 +198,10 @@ public class AddRecordActivity extends AppCompatActivity {
 //        });
 //    }
 
-    private void postData(String name, double set, double weight, String rest_time, double rpe, double rir, String remark) {
+    private void postData(String name, String set, String weight, String rest_time, String rpe, String rir, String remark) {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.179:8081/addEvent/")
+                .baseUrl("http://192.168.0.179:3000/record/addRecord/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         // below line is to create an instance for our retrofit api class.
@@ -211,37 +211,46 @@ public class AddRecordActivity extends AppCompatActivity {
         Record modal = new Record(name, set, weight, rest_time, rpe, rir, remark, mDate);
 
         // calling a method to create a post and passing our modal class.
-        Call<List<Record>> call = retrofitAPI.createData(modal);
+        Call<CheckSuccess> call = retrofitAPI.createRecords(modal);
 
         // on below line we are executing our method.
-        call.enqueue(new Callback<List<Record>>() {
+        call.enqueue(new Callback<CheckSuccess>() {
             @Override
-            public void onResponse(Call<List<Record>> call, Response<List<Record>> response) {
+            public void onResponse(Call<CheckSuccess> call, Response<CheckSuccess> response) {
 
-                Log.d("The number that I want", response.body().size() + "");
-                for (int i = 0; i < response.body().size() - 1; i++) {
-                    Log.d("--------------------", "----------------------");
-                    Log.d("response name", response.body().get(i).getName());
-                    Log.d("response set", response.body().get(i).getSet() + "");
-                    Log.d("response rir", response.body().get(i).getRir() + "");
-                    Log.d("response rpe", response.body().get(i).getRpe() + "");
-                    Log.d("response remark", response.body().get(i).getRemark());
-                    Log.d("response weight", response.body().get(i).getWeight() + "");
-                }
+//                Log.d("The number that I want", response.body().size() + "");
+//                for (int i = 0; i < response.body().size() - 1; i++) {
+//                    Log.d("--------------------", "----------------------");
+//                    Log.d("response name", response.body().get(i).getName());
+//                    Log.d("response set", response.body().get(i).getSet() + "");
+//                    Log.d("response rir", response.body().get(i).getRir() + "");
+//                    Log.d("response rpe", response.body().get(i).getRpe() + "");
+//                    Log.d("response remark", response.body().get(i).getRemark());
+//                    Log.d("response weight", response.body().get(i).getWeight() + "");
+//                }
                 // Log.d("Number that we want",response.body().length);
-                Intent replyIntent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putString("Finish", "true");
-                replyIntent.putExtras(bundle);
-
-                setResult(RESULT_OK, replyIntent);
-                finish();
+//
+//                Intent replyIntent = new Intent();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("Finish", "true");
+//                replyIntent.putExtras(bundle);
+//
+//                setResult(RESULT_OK, replyIntent);
+//                finish();
+                if (response.body().getSuccess() == true) {
+                    Intent replyIntent = new Intent();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Finish", "true");
+                    replyIntent.putExtras(bundle);
+                    setResult(RESULT_OK, replyIntent);
+                    finish();
+                }
 
 
             }
 
             @Override
-            public void onFailure(Call<List<Record>> call, Throwable t) {
+            public void onFailure(Call<CheckSuccess> call, Throwable t) {
 
 
             }
@@ -252,7 +261,7 @@ public class AddRecordActivity extends AppCompatActivity {
     //  a function for ref only
     private void getData() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.179:8081/addEvent/")
+                .baseUrl("http://192.168.0.179:3000/addEvent/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
