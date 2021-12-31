@@ -48,14 +48,14 @@ public class ShowRecordActivity extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.179:3000/getExercises/")
+                .baseUrl("http://192.168.0.179:3000/record/getRecordList/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         // below line is to create an instance for our retrofit api class.
         MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
 
         // calling a method to create a post and passing our modal class.
-        Call<List<RecordOnlyName>> call = retrofitAPI.getExercises(mDate);
+        Call<List<RecordOnlyName>> call = retrofitAPI.getRecords(mDate);
 
         // on below line we are executing our method.
         call.enqueue(new Callback<List<RecordOnlyName>>() {
@@ -63,10 +63,10 @@ public class ShowRecordActivity extends AppCompatActivity {
             public void onResponse(Call<List<RecordOnlyName>> call, Response<List<RecordOnlyName>> response) {
 
                 for (int i = 0; i < response.body().size(); i++) {
-                    name.add(response.body().get(i).getExercises());
+                    name.add(response.body().get(i).getName());
                 }
 
-                Log.d("Number that we want", name.toString());
+                Log.d("Name that we want", name.toString());
                 TextView showText = findViewById(R.id.textView);
                 showText.setText(mDate);
                 RecyclerView list = findViewById(R.id.event_list_recyclar_view);

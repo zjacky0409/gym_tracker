@@ -38,7 +38,8 @@ public class AddRecordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_record);
 
 
-
+        // for getting the list tips
+        // for the AutoCompleteTextView
         Retrofit retrofitFirst = new Retrofit.Builder()
                 .baseUrl("http://192.168.0.179:3000/tips/getTipsList/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -103,18 +104,19 @@ public class AddRecordActivity extends AppCompatActivity {
 
         if (mName != null) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.0.179:3000/getSingleEvent/")
+                    .baseUrl("http://192.168.0.179:3000/record/getSingleRecord/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
 
-            Call<Record> call = retrofitAPI.getSingleEvent(mDate, mName);
+            Call<Record> call = retrofitAPI.getSingleRecord(mName,mDate);
 
             // on below line we are executing our method.
             call.enqueue(new Callback<Record>() {
                 @Override
                 public void onResponse(Call<Record> call, Response<Record> response) {
 
+                    Log.d("RESULT = ", "HGGGGGGGGG");
                     name.setText(response.body().getName());
                     set.setText(response.body().getSet() + "");
                     rest_time.setText(response.body().getRest_time());
@@ -127,7 +129,8 @@ public class AddRecordActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Record> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), "Fail To download data from backend server", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(getApplicationContext(), "Fail To download data from backend server" + t.toString(), Toast.LENGTH_SHORT).show();
                 }
             });
 

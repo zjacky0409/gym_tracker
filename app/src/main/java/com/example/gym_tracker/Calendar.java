@@ -85,7 +85,7 @@ public class Calendar extends AppCompatActivity {
         call.enqueue(new Callback<RecordOnlyName>() {
             @Override
             public void onResponse(Call<RecordOnlyName> call, Response<RecordOnlyName> response) {
-                Log.d("TESTING AR", "exercise: " + response.body().getExercises());
+                Log.d("TESTING AR", "exercise: " + response.body().getName());
 
             }
 

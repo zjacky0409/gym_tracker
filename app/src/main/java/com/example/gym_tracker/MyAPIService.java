@@ -74,16 +74,17 @@ public interface MyAPIService {
     @POST("/record/addRecord")
     Call<CheckSuccess> createRecords(@Body Record data);
 
-    @POST("/record/addRecord")
-    Call<Record> getSingleRecord(@Body String date, String name);
+    @FormUrlEncoded
+    @POST("/record/getSingleRecord")
+    Call<Record> getSingleRecord(@Field("name") String name,@Field("date") String date);
 
     @FormUrlEncoded // important
     @POST("/record/getRecordList")
-    Call<List<Tips>> getRecords(@Field("date") String date);
+    Call<List<RecordOnlyName>> getRecords(@Field("date") String date);
 
     @FormUrlEncoded // important
     @POST("/record/deleteRecord")
-    Call<CheckSuccess> delRecord(@Field("name") String name,@Field("date") String date,@Field("set") double set);
+    Call<CheckSuccess> delRecord(@Field("name") String name,@Field("date") String date);
 
 
 }

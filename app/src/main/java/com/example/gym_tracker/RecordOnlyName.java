@@ -3,14 +3,13 @@ package com.example.gym_tracker;
 
 // a simple class for my backend server
 public class RecordOnlyName {
-    private String exercises;
+    private String name;
 
-    public String getExercises() {
-        return exercises;
+    public String getName() {
+        return name;
     }
 
-    public void setExercises(String exercises) {
-        this.exercises = exercises;
+    public void setName(String name) {
+        this.name = name;
     }
-
 }
