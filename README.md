@@ -4,50 +4,48 @@ This is a project which extends from my school project. I add some new features 
 
 The Github Link of my backend server: https://github.com/zjacky0409/my_app_backend 
 
-I am a gym lover. I want to build an app to keep track my gym record. 
+I am a gym lover. I want to build an app to keep track my gym record. Moreover, gym_tracker helps me to keep track of my gym performance.
 
-gym_tracker helps people to keep track of my gym performance
+6/10 Createed a simple main page. Built a add record function
 
-6/10 create a simple main page. 
+there is a key point --> let the user to compare some data i.e. time(running), weight(bench press) etc. In the report side, we just select the event and download data from server, then the app compare these data.
 
-build a add event function there is a key point --> special point --> let the user to compare i.e. running --> time, bench --> weight .....
+10/10 Created a calendar activity
 
-In the report side, we just select the event and downlaod data from server, then i compare it.
+11/10 Added some event listener to calendar 
 
-10/10 create a calendar activity
+14/10 Added a simple recycler view from lecture's example but I need to build my own version. 
 
-11/10 add some event-listenr to calendar 
+17/10 Learned how to connect to my backend server.
 
-14/10 add a simple recycler view from lecture's example but i need to build own version. 
-
-17/10 learn how to connect to my backend server.
-
-18/10 learn how to connect to my backend server by volley. On the other hand, I really to learn how to connect backend with another tool ---- Retrofit. 
+18/10 Learned how to connect to my backend server by volley. On the other hand, I am really to learn how to connect backend by another tool called Retrofit. 
 
 21/10 Retrofit Testing
 
-23/10 build a simple activity to let user enter exercise information and send to backend.
+23/10 Built a simple activity to let user enter exercise information and send the data to backend.
 
-25/10 build a exercise format and send it to backend
+25/10 Built a exercise format and send it to backend
 
-29/10 build another post request to backend and get the data then store it into a list
+29/10 Built another post request to backend and get the data then store it into a list
 
-30/10 support edit function
+30/10 Supported edit record function
 
-1/11 reload the showEventActivity() after adding an event successfully. --> noted that is startActivityForResult() outdated??? haha
+1/11 Reloaded the showEventActivity() after adding an event successfully. --> noted that is startActivityForResult() outdated??? 
 
-2/11 add a new activity call showTipsActivity. It help user to store the tips.
+2/11 Added a new activity call showTipsActivity. It help user to store the tips.
 
-3/11 learn how to use a card view(android x) and change the toolbar text!! What is andriodX ????
+3/11 Learnt how to use a card view(android x) and change the toolbar text!! What is andriodX ????
 
-4/11 build two fragments to show the detail of the tips
+4/11 Built two fragments to show the detail of the tips
 
-6/11 start to design a full version backend
+6/11 Started to design a full version backend
 
-10/11 add a rich text editor implementation 'jp.wasabeef:richeditor-android:2.0.0'
+10/11 Added a rich text editor implementation 'jp.wasabeef:richeditor-android:2.0.0'
 
-12/11 A Full Version for Tips 1. add tips, 2. del tips 3. edit tips.
+12/11 A Full Version for Tips Finction 1. add tips, 2. del tips 3. edit tips.
 
 23/11 I added a AutoCompleteTextView for the name input(ShowRecordActivity). I will fetch the data from backend first.
 
-20/12 really to upload events record to server
+20/12 Really to upload record record to server
+
+22/12 - 30/12 save the tips/record to server successfully and save it to database.
