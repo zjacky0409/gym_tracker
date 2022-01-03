@@ -45,6 +45,7 @@ public class SelectOptionFragment extends Fragment {
                 View radioButton = radioGroup.findViewById(checkedId);
                 int index = radioGroup.indexOfChild(radioButton);
 
+                // When the user want to switch the content(yt_webview or detail)
                 switch (index) {
                     case 0:
                         ((ShowTipsDetailActivity) getActivity()).afterClick(0);

@@ -19,6 +19,8 @@ public class ShowTipsDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_tips_detail);
+
+        // Get the bundle data
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         name = extras.getString("name");
@@ -26,8 +28,9 @@ public class ShowTipsDetailActivity extends AppCompatActivity {
         yt_link = extras.getString("yt_link");
     }
 
-
+    // Switching the fragment when the user want to switch the content
     public void afterClick(int choose) {
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         TipsDetailFragment = new TipsDetailFragment();

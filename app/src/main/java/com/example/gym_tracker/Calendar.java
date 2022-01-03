@@ -29,18 +29,27 @@ public class Calendar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // link to the res/
         setContentView(R.layout.activity_calendar);
 
+
+        // register different views
         CalendarView calendarView = findViewById(R.id.calendarView);
         TextView show_date = findViewById(R.id.show_date);
         Button goToEvent = findViewById(R.id.go_to_event);
 
+        // for modifying the text in the action bar
         getSupportActionBar().setTitle("Calendar Page");
 
-        Date c = java.util.Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("d-M-yyyy", Locale.getDefault());
-        date = df.format(c);
 
+        // Get the current time
+        Date currentTime = java.util.Calendar.getInstance().getTime();
+        // set the date format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("d-M-yyyy", Locale.getDefault());
+        date = dateFormat.format(currentTime);
+
+        // register the event handlers
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             //important: month is from 0 to 11
@@ -62,6 +71,7 @@ public class Calendar extends AppCompatActivity {
     }
 
     public void goToEventList(View view) {
+        // Go To ShowRecord Activity with bundle
         Intent intent = new Intent(this, ShowRecordActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("Date", date);
@@ -71,6 +81,7 @@ public class Calendar extends AppCompatActivity {
 
     // a class to show the usage of retrofit
     // response is a object
+    // useless function and just for reference for the app
     public void downloadData() {
         // An example to show the usage of Retrofit
         Retrofit retrofit = new Retrofit.Builder()
@@ -85,7 +96,7 @@ public class Calendar extends AppCompatActivity {
         call.enqueue(new Callback<RecordOnlyName>() {
             @Override
             public void onResponse(Call<RecordOnlyName> call, Response<RecordOnlyName> response) {
-                Log.d("TESTING AR", "exercise: " + response.body().getName());
+                Log.d("TESTING", "exercise: " + response.body().getName());
 
             }
 

@@ -35,17 +35,19 @@ public class TipsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class TipsListViewHolder extends RecyclerView.ViewHolder {
-        TextView txt;
+        TextView viewDetail;
         Button del;
         Button edit;
 
-        // Event handling registration, page navigation goes here
+        // Event handling registration, page navigation... goes here
         public TipsListViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.txt = itemView.findViewById(R.id.name_two);
+
+            // register different view
+            this.viewDetail = itemView.findViewById(R.id.name_two);
             this.edit = itemView.findViewById(R.id.edit_tip);
             this.del = itemView.findViewById(R.id.delete_tip);
-            txt.setOnClickListener(new View.OnClickListener() {
+            viewDetail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     goToTipsDetailActivity(view, getPosition());
@@ -58,10 +60,12 @@ public class TipsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             });
 
+            // For delete the tip
             this.del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
+                    // tell to the server that we are going to delete this tip
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl("http://192.168.0.179:3000/tips/delete/")
                             .addConverterFactory(GsonConverterFactory.create())
@@ -74,6 +78,7 @@ public class TipsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         @Override
                         public void onResponse(Call<CheckSuccess> call, Response<CheckSuccess> response) {
 
+                            // after successfully delete the tip, we notify the adapter that the data has been changed
                             if (response.body().getSuccess() == true) {
                                 name.remove(getPosition());
                                 notifyDataSetChanged();
@@ -83,7 +88,7 @@ public class TipsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                         @Override
                         public void onFailure(Call<CheckSuccess> call, Throwable t) {
-                            Toast.makeText(context.getApplicationContext(), "Fail to del data to backend", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context.getApplicationContext(), "Fail to del tip to backend", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -94,7 +99,7 @@ public class TipsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
         public TextView getTextView() {
-            return txt;
+            return viewDetail;
         }
         // End of ViewHolder initialization
     }
@@ -108,6 +113,7 @@ public class TipsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
+    // Set the content of the ViewHolder here
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ((TipsListAdapter.TipsListViewHolder) holder).getTextView().setText(name.get(position).getName());
@@ -124,6 +130,7 @@ public class TipsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
+    // Go to View the Tip
     public void goToTipsDetailActivity(View view, int position) {
         Intent intent = new Intent(context, ShowTipsDetailActivity.class);
         Bundle bundle = new Bundle();
@@ -134,6 +141,8 @@ public class TipsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.context.startActivity(intent);
     }
 
+
+    // Go to Add/Modify Tip
     public void goToAddTipsActivity(View view, int position) {
         Intent intent = new Intent(context, AddTipsActivity.class);
         Bundle bundle = new Bundle();
@@ -143,31 +152,5 @@ public class TipsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         intent.putExtras(bundle);
         ((Activity) this.context).startActivityForResult(intent, 1);
     }
-
-//    public boolean delTip(View view, int position){
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("http://192.168.0.179:3000/exercises/delete/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
-//
-//        Call<CheckSuccess> call = retrofitAPI.delTips();
-//
-//        call.enqueue(new Callback<CheckSuccess>() {
-//            @Override
-//            public void onResponse(Call<CheckSuccess> call, Response<CheckSuccess> response) {
-//
-//                if(response.body().getSuccess() == true){
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CheckSuccess> call, Throwable t) {
-//                Toast.makeText(context.getApplicationContext(), "Fail to del data to backend", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//    }
 
 }

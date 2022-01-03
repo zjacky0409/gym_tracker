@@ -42,11 +42,12 @@ public class ShowRecordActivity extends AppCompatActivity {
 
         addEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                goToAddEventActivity(v);
+                AddRecordActivity(v);
             }
         });
 
 
+        // download the record list from the server
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.0.179:3000/record/getRecordList/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -66,12 +67,12 @@ public class ShowRecordActivity extends AppCompatActivity {
                     name.add(response.body().get(i).getName());
                 }
 
-                Log.d("Name that we want", name.toString());
                 TextView showText = findViewById(R.id.textView);
                 showText.setText(mDate);
+
+                // Build the RecyclerView For the record list
                 RecyclerView list = findViewById(R.id.event_list_recyclar_view);
 
-                Log.d("Test1", ShowRecordActivity.this.toString());
                 RecordListAdapter customAdaptor = new RecordListAdapter(ShowRecordActivity.this,
                         R.layout.event_summary, name, mDate);
                 list.setAdapter(customAdaptor);
@@ -86,7 +87,7 @@ public class ShowRecordActivity extends AppCompatActivity {
             }
         });
 
-//        // the problem of async and await, so we cannot put code here
+//        the problem of async and await, so we cannot put code here
 //        TextView showText = findViewById(R.id.textView);
 //        showText.setText(mDate);
 //        RecyclerView list = (RecyclerView) findViewById(R.id.event_list_recyclar_view);
@@ -97,7 +98,9 @@ public class ShowRecordActivity extends AppCompatActivity {
 //        list.setLayoutManager(new GridLayoutManager(this, 1));
     }
 
-    public void goToAddEventActivity(View view) {
+
+    // Go To AddRecord Activity
+    public void AddRecordActivity(View view) {
         Intent intent = new Intent(this, AddRecordActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("Date", mDate);
@@ -114,13 +117,13 @@ public class ShowRecordActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try{
+        try {
             String result = data.getExtras().getString("Finish");
             if (result.equals("true")) {
                 reloadThePage();
             }
-        }catch (Exception e){
-            Log.d("No Finish", "No Finsh");
+        } catch (Exception e) {
+            Log.d("No Finish", "Error Here");
         }
 
     }

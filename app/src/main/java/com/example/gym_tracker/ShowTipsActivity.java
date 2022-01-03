@@ -1,8 +1,10 @@
 package com.example.gym_tracker;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,8 +29,12 @@ public class ShowTipsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // link to res/
         setContentView(R.layout.activity_show_tips);
 
+
+        // register different view
         FloatingActionButton addTips = findViewById(R.id.addTips);
 
         addTips.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +44,8 @@ public class ShowTipsActivity extends AppCompatActivity {
         });
 
         getSupportActionBar().setTitle("Tips Page");
+
+        // Download data(tips list) from backend
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.0.179:3000/tips/getTipsList/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -46,16 +54,17 @@ public class ShowTipsActivity extends AppCompatActivity {
 
         Call<List<Tips>> call = retrofitAPI.getTips();
 
-        // on below line we are executing our method.
         call.enqueue(new Callback<List<Tips>>() {
             @Override
             public void onResponse(Call<List<Tips>> call, Response<List<Tips>> response) {
 
+                // add the data to the list(name)
                 for (int i = 0; i < response.body().size(); i++) {
                     name.add(response.body().get(i));
                 }
-                RecyclerView list = findViewById(R.id.tips_list);
 
+                // Build the RecyclerView For The Tip List
+                RecyclerView list = findViewById(R.id.tips_list);
                 TipsListAdapter customAdaptor = new TipsListAdapter(ShowTipsActivity.this,
                         R.layout.exercise_summary, name);
                 list.setAdapter(customAdaptor);
@@ -65,12 +74,13 @@ public class ShowTipsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Tips>> call, Throwable t) {
-
-
+                Toast.makeText(getApplicationContext(), "Fail To connect the server ", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+
+    // reload the page
     public void reloadThePage() {
         finish();
         startActivity(getIntent());
@@ -81,10 +91,17 @@ public class ShowTipsActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
+
+    // after the user add the tips successfully, we reload the page and download data from the server again
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        reloadThePage();
+        // reloadThePage();
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                reloadThePage();
+            }
+        }
     }
 
 }

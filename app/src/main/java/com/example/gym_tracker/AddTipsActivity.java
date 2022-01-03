@@ -20,13 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AddTipsActivity extends AppCompatActivity {
 
 
-    private RichEditor mEditor;
+    private RichEditor mEditor; // a rich text editor from wasabeef
     private TextView mPreview;
-
-    private String details;
-    private String name;
-    private String yt_link;
-
 
     // ref: https://github.com/wasabeef/richeditor-android/blob/master/sample/src/main/java/jp/wasabeef/sample/MainActivity.java
     @Override
@@ -36,6 +31,8 @@ public class AddTipsActivity extends AppCompatActivity {
 
 
         mEditor = findViewById(R.id.editor);
+
+        // Please ref to the official document by wasabeef
         mEditor.setEditorHeight(200);
         mEditor.setEditorFontSize(22);
         mEditor.setEditorFontColor(Color.BLACK);
@@ -57,6 +54,7 @@ public class AddTipsActivity extends AppCompatActivity {
             mEditor.setHtml(bundle.getString("details"));
         }
 
+        // undo button
         findViewById(R.id.action_undo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +63,7 @@ public class AddTipsActivity extends AppCompatActivity {
         });
 
 
+        // Saving the tip
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +71,6 @@ public class AddTipsActivity extends AppCompatActivity {
                     addTipsToBackEnd(name.getText().toString(), yt_link.getText().toString(), mPreview.getText().toString());
                 } else {
                     Toast.makeText(getApplicationContext(), "Please fill in name", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
@@ -124,6 +122,7 @@ public class AddTipsActivity extends AppCompatActivity {
 
     }
 
+    // Save the tip to the server
     private void addTipsToBackEnd(String name, String yt_link, String details) {
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -158,7 +157,7 @@ public class AddTipsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<CheckSuccess> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Fail to send data to backend", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Fail to save tip to backend", Toast.LENGTH_SHORT).show();
             }
         });
     }

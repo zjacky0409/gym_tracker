@@ -2,7 +2,6 @@ package com.example.gym_tracker;
 
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,14 +35,13 @@ public class TipsDetailFragment extends Fragment {
 
         try {
             details = getArguments().getString("details");
-            Log.d("yt_link", details);
-
         } catch (Exception e) {
-            details = "<br>details<br>";
+            details = "<br>Fail to get the data.<br>";
 
         }
 
         TextView shownHints = rootView.findViewById(R.id.hints_preview);
+        // because the format of tip is html, so we need to show the html code
         shownHints.setText(Html.fromHtml(details));
         return rootView;
     }

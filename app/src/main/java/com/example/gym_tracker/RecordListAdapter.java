@@ -4,15 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -45,25 +44,23 @@ public class RecordListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         // Event handling registration, page navigation goes here
         public EventListViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            // register different view
             this.txt = itemView.findViewById(R.id.name_two);
-
-            this.txt.setOnClickListener((view) -> {
-                Log.d("I want it", this.txt.getText().toString());
-            });
-
             Button del_btn = itemView.findViewById(R.id.del_btn);
             Button view_edit_btn = itemView.findViewById(R.id.view_edit_btn);
 
+
+            // Delete the record
             del_btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    // do sth
                     delRecord(getAdapterPosition());
                 }
             });
 
             view_edit_btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    goToAddEvent(getAdapterPosition());
+                    goToAddRecord(getAdapterPosition());
                 }
             });
 
@@ -104,7 +101,9 @@ public class RecordListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return name.size();
     }
 
-    public void goToAddEvent(int position) {
+
+    // Add a event
+    public void goToAddRecord(int position) {
         Intent intent = new Intent(this.context, AddRecordActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("Date", mDate);
@@ -113,7 +112,8 @@ public class RecordListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ((Activity) this.context).startActivityForResult(intent, 1);
     }
 
-    public void delRecord(int position){
+    // Delete Record and Inform the server
+    public void delRecord(int position) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.0.179:3000/record/deleteRecord/")
@@ -123,12 +123,14 @@ public class RecordListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
 
         // calling a method to create a post and passing our modal class.
-        Call<CheckSuccess> call = retrofitAPI.delRecord(name.get(position),mDate);
+        Call<CheckSuccess> call = retrofitAPI.delRecord(name.get(position), mDate);
 
         // on below line we are executing our method.
         call.enqueue(new Callback<CheckSuccess>() {
             @Override
             public void onResponse(Call<CheckSuccess> call, Response<CheckSuccess> response) {
+
+                // after successfully delete the tip, we notify the adapter that the data has been changed
                 if (response.body().getSuccess() == true) {
                     name.remove(position);
                     notifyDataSetChanged();
@@ -137,8 +139,7 @@ public class RecordListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             @Override
             public void onFailure(Call<CheckSuccess> call, Throwable t) {
-
-
+                Toast.makeText(context.getApplicationContext(), "Fail to del record", Toast.LENGTH_SHORT).show();
             }
         });
 

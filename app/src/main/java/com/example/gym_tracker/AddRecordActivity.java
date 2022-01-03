@@ -1,7 +1,6 @@
 package com.example.gym_tracker;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,8 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,8 +63,8 @@ public class AddRecordActivity extends AppCompatActivity {
         });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (this,android.R.layout.select_dialog_item,name);
-        AutoCompleteTextView actv =  (AutoCompleteTextView)findViewById(R.id.event_name);
+                (this, android.R.layout.select_dialog_item, name);
+        AutoCompleteTextView actv = findViewById(R.id.event_name);
         actv.setThreshold(1);// Specifies the minimum number of characters the user has to type in the edit box before the drop down list is shown.
         actv.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
 
@@ -109,7 +106,7 @@ public class AddRecordActivity extends AppCompatActivity {
                     .build();
             MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
 
-            Call<Record> call = retrofitAPI.getSingleRecord(mName,mDate);
+            Call<Record> call = retrofitAPI.getSingleRecord(mName, mDate);
 
             // on below line we are executing our method.
             call.enqueue(new Callback<Record>() {
@@ -145,11 +142,11 @@ public class AddRecordActivity extends AppCompatActivity {
                 } else {
                     if (lbs_btn.isChecked()) {
                         postData(name.getText().toString(),
-                               set.getText().toString(),
-                                (Double.parseDouble(weight.getText().toString()) / 2.2)+"",
+                                set.getText().toString(),
+                                (Double.parseDouble(weight.getText().toString()) / 2.2) + "",
                                 rest_time.getText().toString(),
                                 rpe.getText().toString(),
-                               rir.getText().toString(),
+                                rir.getText().toString(),
                                 remark.getText().toString());
                     } else {
                         postData(name.getText().toString(),

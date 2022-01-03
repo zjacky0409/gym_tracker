@@ -1,7 +1,7 @@
 package com.example.gym_tracker;
 
 // ref from http://tw-hkt.blogspot.com/2020/03/retrofit-java.html
-
+// a ref for testing the api calling
 public class Post {
     private int id;
     private String title;

@@ -31,8 +31,6 @@ public interface MyAPIService {
     @POST("/testingAgain")
     Call<RecordOnlyName> getMyDataByPost();
 
-//    @POST("/addEvent")
-//    Call<DataTesting>createData(@Body DataTesting data);
 
     @POST("/addEvent")
     Call<List<Record>> createData(@Body Record data);
@@ -69,14 +67,13 @@ public interface MyAPIService {
     Call<CheckSuccess> delTips(@Field("name") String name);
 
 
-
     // for uploading events, getting events and delete events to server
     @POST("/record/addRecord")
     Call<CheckSuccess> createRecords(@Body Record data);
 
     @FormUrlEncoded
     @POST("/record/getSingleRecord")
-    Call<Record> getSingleRecord(@Field("name") String name,@Field("date") String date);
+    Call<Record> getSingleRecord(@Field("name") String name, @Field("date") String date);
 
     @FormUrlEncoded // important
     @POST("/record/getRecordList")
@@ -84,7 +81,7 @@ public interface MyAPIService {
 
     @FormUrlEncoded // important
     @POST("/record/deleteRecord")
-    Call<CheckSuccess> delRecord(@Field("name") String name,@Field("date") String date);
+    Call<CheckSuccess> delRecord(@Field("name") String name, @Field("date") String date);
 
 
 }

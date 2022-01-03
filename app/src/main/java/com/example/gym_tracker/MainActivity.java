@@ -22,14 +22,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // link to the res/
         setContentView(R.layout.activity_main);
 
+        // register different view
         Button normalAction = findViewById(R.id.modify_btn);
         Button tipsAction = findViewById(R.id.view_tips);
         Button view_report_btn = findViewById(R.id.view_report_btn);
 
         getSupportActionBar().setTitle("Main Page");
 
+        // Event Handling For different buttons
         normalAction.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 goToCalendar(v);
@@ -53,16 +57,19 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void goToCalendar(View view) {
+        // Go to Calendar Activity
         Intent intent = new Intent(this, Calendar.class);
         startActivity(intent);
     }
 
     public void goToReport(View view) {
+        // Go to ViewReport Activity
         Intent intent = new Intent(this, ViewReportActivity.class);
         startActivity(intent);
     }
 
     public void goToViewReport(View view) {
+        // Go to ShowTips Activity
         Intent intent = new Intent(this, ShowTipsActivity.class);
         startActivity(intent);
     }
@@ -92,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Testing", "userId: " + item.getUserId());
                 }
 
-                Log.d("Testing Again Ar", "Testing for async await");
+                Log.d("Testing Again", "Testing for async await");
 
             }
 
