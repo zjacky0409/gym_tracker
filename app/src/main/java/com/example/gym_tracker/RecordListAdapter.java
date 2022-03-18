@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,7 +130,6 @@ public class RecordListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         call.enqueue(new Callback<CheckSuccess>() {
             @Override
             public void onResponse(Call<CheckSuccess> call, Response<CheckSuccess> response) {
-
                 // after successfully delete the tip, we notify the adapter that the data has been changed
                 if (response.body().getSuccess() == true) {
                     name.remove(position);

@@ -208,7 +208,7 @@ public class AddRecordActivity extends AppCompatActivity {
         MyAPIService retrofitAPI = retrofit.create(MyAPIService.class);
 
         // passing data from our text fields to our modal class.
-        Record modal = new Record(name, set, weight, rest_time, rpe, rir, remark, mDate);
+        Record modal = new Record(-1, name, set, weight, rest_time, rpe, rir, remark, mDate);
 
         // calling a method to create a post and passing our modal class.
         Call<CheckSuccess> call = retrofitAPI.createRecords(modal);

@@ -10,6 +10,7 @@ public class Record {
     private String rpe;
     private String rir;
     private String remark;
+    private int id;
 
     public String getRemark() {
         return remark;
@@ -19,7 +20,7 @@ public class Record {
         this.remark = remark;
     }
 
-    public Record(String name, String set, String weight, String rest_time, String rpe, String rir, String remark, String Date) {
+    public Record(int id, String name, String set, String weight, String rest_time, String rpe, String rir, String remark, String Date) {
         this.name = name;
         this.set = set;
         this.weight = weight;
@@ -28,7 +29,16 @@ public class Record {
         this.rir = rir;
         this.remark = remark;
         this.date = Date;
+        this.id = id;
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
